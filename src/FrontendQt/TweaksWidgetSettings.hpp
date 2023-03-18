@@ -13,15 +13,15 @@
 #define SETTINGS(Variable) Variable, UI_NAME(Variable)
 
 template <typename T>
-class RandomizerWidgetSettings
+class TweaksWidgetSettings
 {
 public:
-	RandomizerWidgetSettings(const char* name)
+	TweaksWidgetSettings(const char* name)
 		: m_name(name)
 	{
 	}
 
-	virtual ~RandomizerWidgetSettings() = default;
+	virtual ~TweaksWidgetSettings() = default;
 
 	void load(const nlohmann::json& json)
 	{
@@ -39,11 +39,11 @@ private:
 	const char* m_name;
 };
 
-class RandomizerQCheckBox final : public RandomizerWidgetSettings<bool>
+class TweaksQCheckBox final : public TweaksWidgetSettings<bool>
 {
 public:
-	RandomizerQCheckBox(QCheckBox* widget, const char* name)
-		: m_widget(widget), RandomizerWidgetSettings<bool>(name)
+	TweaksQCheckBox(QCheckBox* widget, const char* name)
+		: m_widget(widget), TweaksWidgetSettings<bool>(name)
 	{
 		m_widget->setStyleSheet("font-weight: normal;");
 	};
@@ -61,11 +61,11 @@ private:
 	QCheckBox* m_widget;
 };
 
-class RandomizerQSlider final : public RandomizerWidgetSettings<s32>
+class TweaksQSlider final : public TweaksWidgetSettings<s32>
 {
 public:
-	RandomizerQSlider(QSlider* widget, const char* name)
-		: m_widget(widget), RandomizerWidgetSettings<s32>(name)
+	TweaksQSlider(QSlider* widget, const char* name)
+		: m_widget(widget), TweaksWidgetSettings<s32>(name)
 	{
 		m_widget->setStyleSheet("font-weight: normal;");
 	};
@@ -83,11 +83,11 @@ private:
 	QSlider* m_widget;
 };
 
-class RandomizerQComboBox final : public RandomizerWidgetSettings<s32>
+class TweaksQComboBox final : public TweaksWidgetSettings<s32>
 {
 public:
-	RandomizerQComboBox(QComboBox* widget, const char* name)
-		: m_widget(widget), RandomizerWidgetSettings<s32>(name)
+	TweaksQComboBox(QComboBox* widget, const char* name)
+		: m_widget(widget), TweaksWidgetSettings<s32>(name)
 	{
 		m_widget->setStyleSheet("font-weight: normal;");
 	};

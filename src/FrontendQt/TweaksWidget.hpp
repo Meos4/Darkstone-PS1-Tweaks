@@ -27,6 +27,6 @@ private:
 	Ui::TweaksWidget m_ui;
 
 	std::unique_ptr<Tweaks> m_tweaks;
-	std::vector<RandomizerQCheckBox> m_qCheckBox;
-	std::vector<RandomizerQComboBox> m_qComboBox;
+	std::vector<TweaksQCheckBox> m_qCheckBox;
+	std::vector<TweaksQComboBox> m_qComboBox;
 };
