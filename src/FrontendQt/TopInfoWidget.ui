@@ -76,7 +76,7 @@
      <property name="checked">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0" columnstretch="0,0">
+     <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0" columnstretch="0,1">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
