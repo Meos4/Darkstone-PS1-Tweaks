@@ -12,8 +12,10 @@
 class Game final
 {
 public:
-	Game(const std::filesystem::path& isoPath, const std::filesystem::path& exePath, Version version);
-	
+	Game(const std::filesystem::path& isoPath, Version version);
+
+	std::filesystem::path filePath(s32 file) const;
+
 	RawFile executable() const;
 
 	template <SameAs<Version>... Args>
@@ -39,7 +41,7 @@ private:
 		const char* serial;
 	};
 
-	std::filesystem::path m_isoPath, m_exePath;
+	std::filesystem::path m_isoPath;
 	Version m_version;
 	Offset m_offset;
 	static const std::unordered_map<Version, VersionSerialText> s_versionSerial;

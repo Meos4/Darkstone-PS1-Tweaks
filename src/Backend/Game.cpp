@@ -1,9 +1,12 @@
 #include "Game.hpp"
 
+#include "Backend/File.hpp"
+#include "Backend/Path.hpp"
 #include "Common/Buffer.hpp"
 #include "Common/DstException.hpp"
 
 #include <array>
+#include <format>
 #include <type_traits>
 
 const std::unordered_map<Version, Game::VersionSerialText> Game::s_versionSerial
@@ -13,18 +16,24 @@ const std::unordered_map<Version, Game::VersionSerialText> Game::s_versionSerial
 	{ Version::PalEn,	{ "PAL-EN", "SLES-03447" } }
 };
 
-Game::Game(const std::filesystem::path& isoPath, const std::filesystem::path& exePath, Version version)
-	: m_isoPath(isoPath), m_exePath(exePath), m_version(version), m_offset(version)
+Game::Game(const std::filesystem::path& isoPath, Version version)
+	: m_isoPath(isoPath), m_version(version), m_offset(version)
 {
+}
+
+std::filesystem::path Game::filePath(s32 file) const
+{
+	const std::filesystem::path path{ std::format("{}/{}/{}", Path::dstTempDirectory, Path::filesDirectory, File::names[file]) };
+	if (!std::filesystem::is_regular_file(path))
+	{
+		throw DstException{ "\"{}\" file doesn't exist in \"{}\"", path.filename().string(), path.parent_path().string() };
+	}
+	return path;
 }
 
 RawFile Game::executable() const
 {
-	if (!std::filesystem::is_regular_file(m_exePath))
-	{
-		throw DstException{ "\"{}\" file doesn't exist in \"{}\"", m_exePath.filename().string(), m_exePath.parent_path().string() };
-	}
-	return RawFile{ m_exePath };
+	return RawFile{ Game::filePath(File::DRAGON_B_EXE) };
 }
 
 const char* Game::versionText() const

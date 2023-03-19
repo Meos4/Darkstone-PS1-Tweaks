@@ -116,7 +116,7 @@ void MainWindow::enableUI(std::filesystem::path* isoPath)
 
 			dumpsxiso(static_cast<int>(dumpArgs.size()), (Path::CStringPlatformPtr)dumpArgs.data());
 
-			m_game = std::make_shared<Game>(*isoPath, std::format("{}/{}", filesPath.string(), "DRAGON_B.EXE"), version.value());
+			m_game = std::make_shared<Game>(*isoPath, version.value());
 
 			emit extractGameDialog.shouldClose();
 
