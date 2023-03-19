@@ -33,6 +33,8 @@ set(SOURCES_COMMON
     ${COMMON_DIR}/Utility.hpp)
 
 set(SOURCES_BACKEND
+    ${BACKEND_DIR}/File.cpp
+    ${BACKEND_DIR}/File.hpp
     ${BACKEND_DIR}/Game.cpp
     ${BACKEND_DIR}/Game.hpp
     ${BACKEND_DIR}/Mips.hpp
