@@ -231,12 +231,12 @@ void MainWindow::onFileSaveAs()
 	{
 		return;
 	}
-	else if (const auto isoPath{ m_game->isoPath() };
-		QtUtility::qStrToPlatformStr(filePathQStr) == isoPath && std::filesystem::is_regular_file(isoPath))
-	{
-		QMessageBox::critical(this, "Error", "You can't save on your vanilla iso.");
-		return;
-	}
+	//else if (const auto isoPath{ m_game->isoPath() };
+	//	QtUtility::qStrToPlatformStr(filePathQStr) == isoPath && std::filesystem::is_regular_file(isoPath))
+	//{
+	//	QMessageBox::critical(this, "Error", "You can't save on your vanilla iso.");
+	//	return;
+	//}
 
 	SaveGameDialog saveGameDialog(this);
 

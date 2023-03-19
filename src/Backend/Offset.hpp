@@ -10,7 +10,15 @@ public:
 	{
 		struct
 		{
-			
+			u32 initInGameMenuLoopFn,
+				inGameMenuLoopFn,
+				drawOnScreenFn,
+				cameraSpeedRotateXPlusFn,
+				cameraSpeedRotateXMinusFn,
+				cameraSpeedRotateYPlusFn,
+				cameraSpeedRotateYMinusFn,
+				mainLoopFn,
+				initVariableFn;
 		} executable;
 	};
 

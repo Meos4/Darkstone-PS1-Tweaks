@@ -27,6 +27,22 @@
      </property>
     </spacer>
    </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="framerate60">
+     <property name="title">
+      <string>60 FPS</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="framerate60Enable">
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

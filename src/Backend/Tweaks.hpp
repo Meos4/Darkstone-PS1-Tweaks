@@ -8,6 +8,8 @@ class Tweaks final
 {
 public:
 	Tweaks(std::shared_ptr<Game> game);
+
+	void framerate60() const;
 private:
 	std::shared_ptr<Game> m_game;
 };

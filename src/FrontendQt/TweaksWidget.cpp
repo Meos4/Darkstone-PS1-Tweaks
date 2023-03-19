@@ -7,6 +7,7 @@
 #include <QMessageBox>
 
 TweaksWidget::TweaksWidget(QWidget* parent)
+	: QWidget(parent)
 {
 	m_ui.setupUi(this);
 	
@@ -14,7 +15,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 
 	m_qCheckBox =
 	{
-
+		{ SETTINGS(m_ui.framerate60Enable) }
 	};
 
 	m_qComboBox =
@@ -43,6 +44,11 @@ void TweaksWidget::write() const
 	if (!m_tweaks)
 	{
 		throw DstException{ "Game is uninitialized" };
+	}
+
+	if (m_ui.framerate60Enable->isChecked())
+	{
+		m_tweaks->framerate60();
 	}
 }
 

@@ -10,21 +10,29 @@ fileNtscU
 	.executable
 	{
 
-	},
+	}
 },
 filePal
 {
 	.executable
 	{
-
-	},
+		.initInGameMenuLoopFn = 0x000581DC,
+		.inGameMenuLoopFn = 0x000514F0,
+		.drawOnScreenFn = 0x00008AD4,
+		.cameraSpeedRotateXPlusFn = 0x00066884,
+		.cameraSpeedRotateXMinusFn = 0x000666D8,
+		.cameraSpeedRotateYPlusFn = 0x00066C00,
+		.cameraSpeedRotateYMinusFn = 0x00066A30,
+		.mainLoopFn = 0x000094C8,
+		.initVariableFn = 0x00008874
+	}
 },
 filePalEn
 {
 	.executable
 	{
 
-	},
+	}
 };
 
 static constexpr Offset::Game
