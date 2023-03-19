@@ -31,6 +31,11 @@ std::filesystem::path Game::filePath(s32 file) const
 	return path;
 }
 
+std::unique_ptr<RawFile> Game::file(s32 file) const
+{
+	return std::make_unique<RawFile>(Game::filePath(file));
+}
+
 RawFile Game::executable() const
 {
 	return RawFile{ Game::filePath(File::DRAGON_B_EXE) };

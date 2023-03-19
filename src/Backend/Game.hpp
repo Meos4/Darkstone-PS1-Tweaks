@@ -4,8 +4,10 @@
 #include "Backend/Version.hpp"
 #include "Common/RawFile.hpp"
 #include "Common/TemplateTypes.hpp"
+#include "Common/Types.hpp"
 
 #include <filesystem>
+#include <memory>
 #include <optional>
 #include <unordered_map>
 
@@ -16,6 +18,7 @@ public:
 
 	std::filesystem::path filePath(s32 file) const;
 
+	std::unique_ptr<RawFile> file(s32 file) const;
 	RawFile executable() const;
 
 	template <SameAs<Version>... Args>
