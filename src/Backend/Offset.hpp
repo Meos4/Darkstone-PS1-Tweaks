@@ -18,7 +18,8 @@ public:
 				cameraSpeedRotateYPlusFn,
 				cameraSpeedRotateYMinusFn,
 				mainLoopFn,
-				initVariableFn;
+				initVariableFn,
+				chooseClassLoopFn;
 		} executable;
 	};
 

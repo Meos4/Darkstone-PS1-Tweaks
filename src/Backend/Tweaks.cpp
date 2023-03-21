@@ -9,6 +9,14 @@ Tweaks::Tweaks(std::shared_ptr<Game> game)
 {
 }
 
+void Tweaks::unlockCostumeByDefault() const
+{
+	auto executable{ m_game->executable() };
+
+	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x430, Mips_t(0));
+	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x558, Mips_t(0));
+}
+
 void Tweaks::framerate60() const
 {
 	auto executable{ m_game->executable() };

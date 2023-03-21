@@ -24,7 +24,8 @@ filePal
 		.cameraSpeedRotateYPlusFn = 0x00066C00,
 		.cameraSpeedRotateYMinusFn = 0x00066A30,
 		.mainLoopFn = 0x000094C8,
-		.initVariableFn = 0x00008874
+		.initVariableFn = 0x00008874,
+		.chooseClassLoopFn = 0x00079314
 	}
 },
 filePalEn
