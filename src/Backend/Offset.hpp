@@ -21,6 +21,7 @@ public:
 				initVariableFn,
 				chooseClassLoopFn,
 				startFn,
+				resetVariableNewMapFn,
 				cc_begin;
 		} executable;
 	};

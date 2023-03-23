@@ -17,6 +17,13 @@ void Tweaks::unlockCostumeByDefault() const
 	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x558, Mips_t(0));
 }
 
+void Tweaks::theftBlock() const
+{
+	auto executable{ m_game->executable() };
+
+	executable.write(m_game->offset().file.executable.resetVariableNewMapFn + 0x20, Mips_t(0xAF800154)); // sw zero, 0x154(gp)
+}
+
 void Tweaks::framerate60() const
 {
 	auto executable{ m_game->executable() };

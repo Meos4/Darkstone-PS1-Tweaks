@@ -14,7 +14,23 @@
    <string>TweaksWidget</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="0">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="unlockCostumeByDefault">
+     <property name="title">
+      <string>Unlock Costume By Default</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="unlockCostumeByDefaultEnable">
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="6" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -27,7 +43,7 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QGroupBox" name="framerate60">
      <property name="title">
       <string>60 FPS</string>
@@ -43,16 +59,16 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="unlockCostumeByDefault">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="theftBlock">
      <property name="title">
-      <string>Unlock Costume By Default</string>
+      <string>Theft Block</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QCheckBox" name="unlockCostumeByDefaultEnable">
+       <widget class="QCheckBox" name="theftBlockFix">
         <property name="text">
-         <string>Enable</string>
+         <string>Fix</string>
         </property>
        </widget>
       </item>

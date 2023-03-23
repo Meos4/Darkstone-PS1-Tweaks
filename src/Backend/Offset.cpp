@@ -27,6 +27,7 @@ filePal
 		.initVariableFn = 0x00008874,
 		.chooseClassLoopFn = 0x00079314,
 		.startFn = 0x000B3ABC,
+		.resetVariableNewMapFn = 0x0000E7D0,
 		.cc_begin = 0x00120CD0
 	}
 },
