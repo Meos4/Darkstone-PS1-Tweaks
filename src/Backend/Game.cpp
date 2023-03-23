@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 #include "Backend/File.hpp"
+#include "Backend/Mips.hpp"
 #include "Backend/Path.hpp"
 #include "Common/Buffer.hpp"
 #include "Common/DstException.hpp"
@@ -19,6 +20,40 @@ const std::unordered_map<Version, Game::VersionSerialText> Game::s_versionSerial
 Game::Game(const std::filesystem::path& isoPath, Version version)
 	: m_isoPath(isoPath), m_version(version), m_offset(version)
 {
+	// Expand Executable
+	auto executable{ this->executable() };
+
+	auto
+		luiBeginHeap{ executable.read<Mips_t>(offset().file.executable.startFn + 0x18) },
+		addiuBeginHeap{ executable.read<Mips_t>(offset().file.executable.startFn + 0x1C) };
+
+	u32 newBeginHeap{ (static_cast<u16>(luiBeginHeap) << 16) + static_cast<u16>(addiuBeginHeap) + Game::sectorSize };
+	const u32 rest{ newBeginHeap % Game::sectorSize };
+	if (rest)
+	{
+		newBeginHeap += Game::sectorSize - rest;
+	}
+
+	const u32 newExecutableSize{ (newBeginHeap + Game::sectorSize - 0x10000) & ~0x80000000 };
+
+	if (newExecutableSize > 0x00200000 + Game::sectorSize)
+	{
+		throw DstException{ "New executable size exceed limit: {}", newExecutableSize };
+	}
+	else if (executable.size() != newExecutableSize)
+	{
+		executable.write(0x1C, (newBeginHeap - 0x10000) & ~0x80000000);
+		std::filesystem::resize_file(filePath(File::DRAGON_B_EXE), newExecutableSize);
+
+		const bool isRightPartPositive{ static_cast<s16>(newBeginHeap) >= 0 };
+
+		luiBeginHeap = ((luiBeginHeap >> 16) << 16);
+		luiBeginHeap += isRightPartPositive ? (newBeginHeap >> 16) : (newBeginHeap >> 16) + 1;
+		addiuBeginHeap = ((addiuBeginHeap >> 16) << 16) + static_cast<u16>(newBeginHeap);
+
+		executable.write(offset().file.executable.startFn + 0x54, luiBeginHeap + 0x10000);
+		executable.write(offset().file.executable.startFn + 0x58, addiuBeginHeap + 0x210000);
+	}
 }
 
 std::filesystem::path Game::filePath(s32 file) const

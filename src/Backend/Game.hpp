@@ -14,6 +14,14 @@
 class Game final
 {
 public:
+	struct CustomCodeOffset
+	{
+		u32 file;
+		u32 game;
+	};
+
+	static constexpr auto sectorSize{ 2048u };
+
 	Game(const std::filesystem::path& isoPath, Version version);
 
 	std::filesystem::path filePath(s32 file) const;

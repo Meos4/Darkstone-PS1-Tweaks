@@ -19,13 +19,15 @@ public:
 				cameraSpeedRotateYMinusFn,
 				mainLoopFn,
 				initVariableFn,
-				chooseClassLoopFn;
+				chooseClassLoopFn,
+				startFn,
+				cc_begin;
 		} executable;
 	};
 
 	struct Game
 	{
-		
+		u32 cc_begin;
 	};
 
 	Offset(Version version);

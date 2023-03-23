@@ -25,14 +25,16 @@ filePal
 		.cameraSpeedRotateYMinusFn = 0x00066A30,
 		.mainLoopFn = 0x000094C8,
 		.initVariableFn = 0x00008874,
-		.chooseClassLoopFn = 0x00079314
+		.chooseClassLoopFn = 0x00079314,
+		.startFn = 0x000B3ABC,
+		.cc_begin = 0x00120CD0
 	}
 },
 filePalEn
 {
 	.executable
 	{
-
+		.cc_begin = 0x801304F0
 	}
 };
 
