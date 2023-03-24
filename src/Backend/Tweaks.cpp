@@ -25,20 +25,6 @@ void Tweaks::theftBlock() const
 	executable.write(m_game->offset().file.executable.resetVariableNewMapFn + 0x20, Mips_t(0xAF800154)); // sw zero, 0x154(gp)
 }
 
-//.id = 
-//{
-//	// ITEM_XAMULET
-//	0x00DF, 0x00E0, 0x00E1, 0x00E2,
-//	0x00E3, 0x00E4, 0x00E5, 0x00E6,
-//	0x00E7, 0x00E8,
-//	// ITEM_XRING
-//	0x01B0, 0x01B1, 0x01B2, 0x01B3,
-//	0x01B4, 0x01B5, 0x01B6, 0x01B7,
-//	0x01B8,
-//	// 4 Bytes Padding
-//	0x0000
-//},
-
 void Tweaks::theftEmptyJewelry() const
 {
 	auto executable{ m_game->executable() };
