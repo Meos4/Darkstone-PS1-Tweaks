@@ -17,6 +17,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 	{
 		{ SETTINGS(m_ui.unlockCostumeByDefaultEnable) },
 		{ SETTINGS(m_ui.theftBlockFix) },
+		{ SETTINGS(m_ui.theftEmptyJewelryFix) },
 		{ SETTINGS(m_ui.framerate60Enable) }
 	};
 
@@ -56,6 +57,11 @@ void TweaksWidget::write() const
 	if (m_ui.theftBlockFix->isChecked())
 	{
 		m_tweaks->theftBlock();
+	}
+
+	if (m_ui.theftEmptyJewelryFix->isChecked())
+	{
+		m_tweaks->theftEmptyJewelry();
 	}
 
 	if (m_ui.framerate60Enable->isChecked())

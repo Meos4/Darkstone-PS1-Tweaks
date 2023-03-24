@@ -11,6 +11,7 @@ public:
 
 	void unlockCostumeByDefault() const;
 	void theftBlock() const;
+	void theftEmptyJewelry() const;
 	void framerate60() const;
 private:
 	std::shared_ptr<Game> m_game;

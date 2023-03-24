@@ -28,6 +28,7 @@ filePal
 		.chooseClassLoopFn = 0x00079314,
 		.startFn = 0x000B3ABC,
 		.resetVariableNewMapFn = 0x0000E7D0,
+		.generateTheftItemFn = 0x00087604,
 		.cc_begin = 0x00120CD0
 	}
 },
@@ -35,7 +36,7 @@ filePalEn
 {
 	.executable
 	{
-		.cc_begin = 0x801304F0
+		
 	}
 };
 
@@ -46,7 +47,12 @@ gameNtscU
 },
 gamePal
 {
-
+	.setItemBonusFn = 0x8004AC6C,
+	.difficulty = 0x800E356C,
+	.getLevelPoolIdFn = 0x80043850,
+	.mapId = 0x801042FC,
+	.mapInformations = 0x800EF1B8,
+	.cc_begin = 0x801304F0
 },
 gamePalEn
 {

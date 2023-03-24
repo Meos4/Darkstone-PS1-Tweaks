@@ -111,6 +111,17 @@ void Game::setIsoPath(const std::filesystem::path& isoPath)
 	m_isoPath = isoPath;
 }
 
+Game::CustomCodeOffset Game::setTheftJewelryBonusOffset() const
+{
+	CustomCodeOffset cc
+	{
+		.file = offset().file.executable.cc_begin,
+		.game = offset().game.cc_begin
+	};
+
+	return cc;
+}
+
 std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)
 {
 	if (!std::filesystem::is_regular_file(isoPath))

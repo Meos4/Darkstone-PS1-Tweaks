@@ -22,13 +22,19 @@ public:
 				chooseClassLoopFn,
 				startFn,
 				resetVariableNewMapFn,
+				generateTheftItemFn,
 				cc_begin;
 		} executable;
 	};
 
 	struct Game
 	{
-		u32 cc_begin;
+		u32 setItemBonusFn,
+			difficulty,
+			getLevelPoolIdFn,
+			mapId,
+			mapInformations,
+			cc_begin;
 	};
 
 	Offset(Version version);
