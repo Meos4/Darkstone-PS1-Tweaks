@@ -38,7 +38,7 @@ void Tweaks::theftEmptyJewelry() const
 		li32_xamuletStr{ Mips::li32(Mips::Register::a0, CustomCode::GenerateJewelryBonus::xamuletStrOffset(generateJewelryBonusOffset.game)) },
 		li32_xringStr{ Mips::li32(Mips::Register::a0, CustomCode::GenerateJewelryBonus::xringStrOffset(generateJewelryBonusOffset.game)) };
 
-	CustomCode::GenerateJewelryBonus generateJewelryBonusFn
+	const CustomCode::GenerateJewelryBonus generateJewelryBonusFn
 	{
 		.xamuletStr = { 0x58, 0x41, 0x4D, 0x55, 0x4C, 0x45, 0x54 },
 		.xringStr = { 0x58, 0x52, 0x49, 0x4E, 0x47 },
