@@ -45,6 +45,7 @@ public:
 	void setIsoPath(const std::filesystem::path& isoPath);
 
 	CustomCodeOffset setTheftJewelryBonusOffset() const;
+	CustomCodeOffset setHeroAndLegendBonusShopOffset() const;
 
 	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:

@@ -22,6 +22,7 @@ public:
 	Tweaks::HudColorArray hudColor() const;
 
 	void unlockCostumeByDefault() const;
+	void expandHeroAndLegendShops() const;
 	void hudColor(const Tweaks::HudColorArray& hud) const;
 	void theftBlock() const;
 	void theftEmptyJewelry() const;

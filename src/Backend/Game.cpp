@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+#include "Backend/CustomCode.hpp"
 #include "Backend/File.hpp"
 #include "Backend/Mips.hpp"
 #include "Backend/Path.hpp"
@@ -118,6 +119,16 @@ Game::CustomCodeOffset Game::setTheftJewelryBonusOffset() const
 		.file = offset().file.executable.cc_begin,
 		.game = offset().game.cc_begin
 	};
+
+	return cc;
+}
+
+Game::CustomCodeOffset Game::setHeroAndLegendBonusShopOffset() const
+{
+	auto cc{ setTheftJewelryBonusOffset() };
+
+	cc.file += sizeof(CustomCode::GenerateJewelryBonus);
+	cc.game += sizeof(CustomCode::GenerateJewelryBonus);
 
 	return cc;
 }

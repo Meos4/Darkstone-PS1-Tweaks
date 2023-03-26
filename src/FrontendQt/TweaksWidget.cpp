@@ -18,6 +18,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 	m_qCheckBox =
 	{
 		{ SETTINGS(m_ui.unlockCostumeByDefaultEnable) },
+		{ SETTINGS(m_ui.expandHeroAndLegendShopsEnable) },
 		{ SETTINGS(m_ui.theftBlockFix) },
 		{ SETTINGS(m_ui.theftEmptyJewelryFix) },
 		{ SETTINGS(m_ui.framerate60Enable) }
@@ -84,6 +85,11 @@ void TweaksWidget::write() const
 	if (m_ui.unlockCostumeByDefaultEnable->isChecked())
 	{
 		m_tweaks->unlockCostumeByDefault();
+	}
+
+	if (m_ui.expandHeroAndLegendShopsEnable->isChecked())
+	{
+		m_tweaks->expandHeroAndLegendShops();
 	}
 
 	m_tweaks->hudColor(hudColor());

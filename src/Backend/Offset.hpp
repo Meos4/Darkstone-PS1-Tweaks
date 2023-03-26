@@ -24,6 +24,7 @@ public:
 				resetVariableNewMapFn,
 				generateTheftItemFn,
 				hudColor,
+				generateShopFn,
 				cc_begin;
 		} executable;
 	};

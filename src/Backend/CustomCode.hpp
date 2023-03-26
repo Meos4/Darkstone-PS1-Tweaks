@@ -17,4 +17,6 @@ namespace CustomCode
 		static constexpr u32 xringStrOffset(u32 begin) { return xamuletStrOffset(begin) + sizeof(xamuletStr); };
 		static constexpr u32 functionOffset(u32 begin) { return xringStrOffset(begin) + sizeof(xringStr); };
 	};
+
+	using SetHeroAndLegendBonusShop = std::array<Mips_t, 19>;
 }

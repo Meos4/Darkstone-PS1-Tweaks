@@ -23,6 +23,48 @@ void Tweaks::unlockCostumeByDefault() const
 	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x558, Mips_t(0));
 }
 
+void Tweaks::expandHeroAndLegendShops() const
+{
+	auto executable{ m_game->executable() };
+
+	const auto li32_difficulty{ Mips::li32(Mips::Register::v0, m_game->offset().game.difficulty) };
+
+	const CustomCode::SetHeroAndLegendBonusShop setHeroAndLegendBonusShopFn
+	{
+		0x00C31821, // addu v1, a2, v1
+		li32_difficulty[0],
+		li32_difficulty[1],
+		0x8C420000, // lw v0, 0(v0)
+
+		// if is Hero
+		0x24080004, // li t0, 4
+		0x14480006, // bne v0, t0, +6
+		0x24080005, // li t0, 5
+		0x8FA80664, // lw t0, 0x664(sp)
+		0x2652001C, // addiu s2, 0x1C
+		0x25080060, // addiu t0, 0x60
+		0x10000006, // b, +6
+		0xAFA80664, // sw t0, 0x664(sp)
+
+		// else if is Legend
+		0x14480004, // bne v0, t0, +4
+		0x8FA80664, // lw t0, 0x664(sp)
+		0x2652001C, // addiu s2, 0x1C
+		0x25080080, // addiu t0, 0x80
+		0xAFA80664, // sw t0, 0x664(sp)
+
+		0x03E00008, // jr ra
+		0x00000000  // nop
+	};
+
+	const auto setHeroAndLegendBonusShopOffset{ m_game->setHeroAndLegendBonusShopOffset() };
+
+	const std::array<Mips_t, 2> jal_sll_v1_2{ Mips::jal(setHeroAndLegendBonusShopOffset.game), 0x00031880 }; // sll v1, 2
+
+	executable.write(setHeroAndLegendBonusShopOffset.file, setHeroAndLegendBonusShopFn);
+	executable.write(m_game->offset().file.executable.generateShopFn + 0xC4, jal_sll_v1_2);
+}
+
 void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
 {
 	m_game->executable().write(m_game->offset().file.executable.hudColor, hud);
