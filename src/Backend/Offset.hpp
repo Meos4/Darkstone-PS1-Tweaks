@@ -23,6 +23,7 @@ public:
 				startFn,
 				resetVariableNewMapFn,
 				generateTheftItemFn,
+				hudColor,
 				cc_begin;
 		} executable;
 	};

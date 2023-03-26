@@ -10,12 +10,22 @@ Tweaks::Tweaks(std::shared_ptr<Game> game)
 {
 }
 
+Tweaks::HudColorArray Tweaks::hudColor() const
+{
+	return m_game->executable().read<Tweaks::HudColorArray>(m_game->offset().file.executable.hudColor);
+}
+
 void Tweaks::unlockCostumeByDefault() const
 {
 	auto executable{ m_game->executable() };
 
 	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x430, Mips_t(0));
 	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x558, Mips_t(0));
+}
+
+void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
+{
+	m_game->executable().write(m_game->offset().file.executable.hudColor, hud);
 }
 
 void Tweaks::theftBlock() const

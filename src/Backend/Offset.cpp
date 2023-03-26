@@ -29,6 +29,7 @@ filePal
 		.startFn = 0x000B3ABC,
 		.resetVariableNewMapFn = 0x0000E7D0,
 		.generateTheftItemFn = 0x00087604,
+		.hudColor = 0x000D5D48,
 		.cc_begin = 0x00120CD0
 	}
 },

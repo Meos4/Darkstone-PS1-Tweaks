@@ -14,20 +14,7 @@
    <string>TweaksWidget</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="7" column="0">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QGroupBox" name="theftBlock">
      <property name="title">
       <string>Theft Block</string>
@@ -44,15 +31,15 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QGroupBox" name="framerate60">
+    <widget class="QGroupBox" name="theftEmptyJewelry">
      <property name="title">
-      <string>60 FPS</string>
+      <string>Theft Empty Jewelry</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QCheckBox" name="framerate60Enable">
+       <widget class="QCheckBox" name="theftEmptyJewelryFix">
         <property name="text">
-         <string>Enable</string>
+         <string>Fix</string>
         </property>
        </widget>
       </item>
@@ -75,18 +62,90 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QGroupBox" name="theftEmptyJewelry">
-     <property name="title">
-      <string>Theft Empty Jewelry</string>
+   <item row="8" column="0">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="framerate60">
+     <property name="title">
+      <string>60 FPS</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QCheckBox" name="theftEmptyJewelryFix">
+       <widget class="QCheckBox" name="framerate60Enable">
         <property name="text">
-         <string>Fix</string>
+         <string>Enable</string>
         </property>
        </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="hudColor">
+     <property name="title">
+      <string>Hud Color</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QComboBox" name="hudColorCombo"/>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="hudColorR">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="hudColorG">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="hudColorB">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="hudColorResult">
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
