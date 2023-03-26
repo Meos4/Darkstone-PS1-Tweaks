@@ -17,11 +17,11 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 
 	m_qCheckBox =
 	{
-		{ SETTINGS(m_ui.unlockCostumeByDefaultEnable) },
-		{ SETTINGS(m_ui.expandHeroAndLegendShopsEnable) },
-		{ SETTINGS(m_ui.theftBlockFix) },
-		{ SETTINGS(m_ui.theftEmptyJewelryFix) },
-		{ SETTINGS(m_ui.framerate60Enable) }
+		{ SETTINGS(m_ui.tweaksUnlockCostumeByDefault) },
+		{ SETTINGS(m_ui.tweaksExpandHeroAndLegendShops) },
+		{ SETTINGS(m_ui.fixesTheftBlock) },
+		{ SETTINGS(m_ui.fixesTheftEmptyJewelry) },
+		{ SETTINGS(m_ui.duckstation60FPS) }
 	};
 
 	m_qComboBox =
@@ -29,10 +29,10 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 
 	};
 
-	m_ui.hudColorCombo->setStyleSheet("font-weight: normal;");
-	m_ui.hudColorR->setStyleSheet("font-weight: normal;");
-	m_ui.hudColorG->setStyleSheet("font-weight: normal;");
-	m_ui.hudColorB->setStyleSheet("font-weight: normal;");
+	m_ui.tweaksHudColorCombo->setStyleSheet("font-weight: normal;");
+	m_ui.tweaksHudColorR->setStyleSheet("font-weight: normal;");
+	m_ui.tweaksHudColorG->setStyleSheet("font-weight: normal;");
+	m_ui.tweaksHudColorB->setStyleSheet("font-weight: normal;");
 
 	static constexpr std::array<const char*, 8> hudNames
 	{
@@ -42,13 +42,13 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 
 	for (const auto& name : hudNames)
 	{
-		m_ui.hudColorCombo->addItem(name);
+		m_ui.tweaksHudColorCombo->addItem(name);
 	}
 
-	connect(m_ui.hudColorCombo, &QComboBox::currentIndexChanged, this, &TweaksWidget::updateHudThemes);
-	connect(m_ui.hudColorR, &QSpinBox::valueChanged, this, &TweaksWidget::updateHudColorRGB);
-	connect(m_ui.hudColorG, &QSpinBox::valueChanged, this, &TweaksWidget::updateHudColorRGB);
-	connect(m_ui.hudColorB, &QSpinBox::valueChanged, this, &TweaksWidget::updateHudColorRGB);
+	connect(m_ui.tweaksHudColorCombo, &QComboBox::currentIndexChanged, this, &TweaksWidget::updateHudThemes);
+	connect(m_ui.tweaksHudColorR, &QSpinBox::valueChanged, this, &TweaksWidget::updateHudColorRGB);
+	connect(m_ui.tweaksHudColorG, &QSpinBox::valueChanged, this, &TweaksWidget::updateHudColorRGB);
+	connect(m_ui.tweaksHudColorB, &QSpinBox::valueChanged, this, &TweaksWidget::updateHudColorRGB);
 }
 
 void TweaksWidget::enableUI(std::shared_ptr<Game> game)
@@ -58,7 +58,7 @@ void TweaksWidget::enableUI(std::shared_ptr<Game> game)
 	if (m_isFirstEnableUI)
 	{
 		m_colors = m_tweaks->hudColor();
-		m_previousThemeIndex = m_ui.hudColorCombo->currentIndex();
+		m_previousThemeIndex = m_ui.tweaksHudColorCombo->currentIndex();
 		colorToUI(m_previousThemeIndex);
 		m_isFirstEnableUI = false;
 	}
@@ -82,29 +82,29 @@ void TweaksWidget::write() const
 		throw DstException{ "Game is uninitialized" };
 	}
 
-	if (m_ui.unlockCostumeByDefaultEnable->isChecked())
+	if (m_ui.tweaksUnlockCostumeByDefault->isChecked())
 	{
 		m_tweaks->unlockCostumeByDefault();
 	}
 
-	if (m_ui.expandHeroAndLegendShopsEnable->isChecked())
+	if (m_ui.tweaksExpandHeroAndLegendShops->isChecked())
 	{
 		m_tweaks->expandHeroAndLegendShops();
 	}
 
 	m_tweaks->hudColor(hudColor());
 
-	if (m_ui.theftBlockFix->isChecked())
+	if (m_ui.fixesTheftBlock->isChecked())
 	{
 		m_tweaks->theftBlock();
 	}
 
-	if (m_ui.theftEmptyJewelryFix->isChecked())
+	if (m_ui.fixesTheftEmptyJewelry->isChecked())
 	{
 		m_tweaks->theftEmptyJewelry();
 	}
 
-	if (m_ui.framerate60Enable->isChecked())
+	if (m_ui.duckstation60FPS->isChecked())
 	{
 		m_tweaks->framerate60();
 	}
@@ -134,7 +134,7 @@ void TweaksWidget::loadSettings(const std::filesystem::path& path)
 			Json::set<u8>(json["colors"][i], "green", [&](auto v) { m_colors[i].green = v; });
 			Json::set<u8>(json["colors"][i], "blue", [&](auto v) { m_colors[i].blue = v; });
 		}
-		colorToUI(m_ui.hudColorCombo->currentIndex());
+		colorToUI(m_ui.tweaksHudColorCombo->currentIndex());
 	}
 	catch (const nlohmann::json::exception& e)
 	{
@@ -180,33 +180,33 @@ void TweaksWidget::saveSettings(const std::filesystem::path& path)
 Tweaks::HudColorArray TweaksWidget::hudColor() const
 {
 	auto hud{ m_colors };
-	const auto theme{ m_ui.hudColorCombo->currentIndex() };
+	const auto theme{ m_ui.tweaksHudColorCombo->currentIndex() };
 
-	hud[theme].red = static_cast<u8>(m_ui.hudColorR->value());
-	hud[theme].green = static_cast<u8>(m_ui.hudColorG->value());
-	hud[theme].blue = static_cast<u8>(m_ui.hudColorB->value());
+	hud[theme].red = static_cast<u8>(m_ui.tweaksHudColorR->value());
+	hud[theme].green = static_cast<u8>(m_ui.tweaksHudColorG->value());
+	hud[theme].blue = static_cast<u8>(m_ui.tweaksHudColorB->value());
 
 	return hud;
 }
 
 void TweaksWidget::colorToUI(s32 theme)
 {
-	m_ui.hudColorR->setValue(m_colors[theme].red);
-	m_ui.hudColorG->setValue(m_colors[theme].green);
-	m_ui.hudColorB->setValue(m_colors[theme].blue);
+	m_ui.tweaksHudColorR->setValue(m_colors[theme].red);
+	m_ui.tweaksHudColorG->setValue(m_colors[theme].green);
+	m_ui.tweaksHudColorB->setValue(m_colors[theme].blue);
 }
 
 void TweaksWidget::UIToColor(s32 theme)
 {
-	m_colors[theme].red = static_cast<u8>(m_ui.hudColorR->value());
-	m_colors[theme].green = static_cast<u8>(m_ui.hudColorG->value());
-	m_colors[theme].blue = static_cast<u8>(m_ui.hudColorB->value());
+	m_colors[theme].red = static_cast<u8>(m_ui.tweaksHudColorR->value());
+	m_colors[theme].green = static_cast<u8>(m_ui.tweaksHudColorG->value());
+	m_colors[theme].blue = static_cast<u8>(m_ui.tweaksHudColorB->value());
 }
 
 void TweaksWidget::updateHudThemes()
 {
 	UIToColor(m_previousThemeIndex);
-	m_previousThemeIndex = m_ui.hudColorCombo->currentIndex();
+	m_previousThemeIndex = m_ui.tweaksHudColorCombo->currentIndex();
 	colorToUI(m_previousThemeIndex);
 }
 
@@ -215,7 +215,7 @@ void TweaksWidget::updateHudColorRGB()
 	const auto colorRGB
 	{
 		std::format("background-color:rgb({},{},{});",
-			m_ui.hudColorR->value(), m_ui.hudColorG->value(), m_ui.hudColorB->value())
+			m_ui.tweaksHudColorR->value(), m_ui.tweaksHudColorG->value(), m_ui.tweaksHudColorB->value())
 	};
-	m_ui.hudColorResult->setStyleSheet(QString::fromStdString(colorRGB));
+	m_ui.tweaksHudColorResult->setStyleSheet(QString::fromStdString(colorRGB));
 }

@@ -14,23 +14,30 @@
    <string>TweaksWidget</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="0">
-    <widget class="QGroupBox" name="theftBlock">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="fixes">
      <property name="title">
-      <string>Theft Block</string>
+      <string>Fixes</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QCheckBox" name="theftBlockFix">
+       <widget class="QCheckBox" name="fixesTheftBlock">
         <property name="text">
-         <string>Fix</string>
+         <string>Theft Block</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="fixesTheftEmptyJewelry">
+        <property name="text">
+         <string>Theft Empty Jewelry</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="9" column="0">
+   <item row="6" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -43,123 +50,98 @@
      </property>
     </spacer>
    </item>
-   <item row="4" column="0">
-    <widget class="QGroupBox" name="theftEmptyJewelry">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="tweaks">
      <property name="title">
-      <string>Theft Empty Jewelry</string>
+      <string>Tweaks</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <widget class="QCheckBox" name="theftEmptyJewelryFix">
+       <widget class="QCheckBox" name="tweaksUnlockCostumeByDefault">
         <property name="text">
-         <string>Fix</string>
+         <string>Unlock Costume By Default</string>
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="unlockCostumeByDefault">
-     <property name="title">
-      <string>Unlock Costume By Default</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QCheckBox" name="unlockCostumeByDefaultEnable">
+       <widget class="QCheckBox" name="tweaksExpandHeroAndLegendShops">
         <property name="text">
-         <string>Enable</string>
+         <string>Expand Hero And Legend Shops</string>
         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="tweaksHudColor">
+        <property name="title">
+         <string>Hud Color</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QComboBox" name="tweaksHudColorCombo"/>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="tweaksHudColorR">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="tweaksHudColorG">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="tweaksHudColorB">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="tweaksHudColorResult">
+           <property name="minimumSize">
+            <size>
+             <width>25</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QGroupBox" name="hudColor">
+    <widget class="QGroupBox" name="duckstation">
      <property name="title">
-      <string>Hud Color</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QComboBox" name="hudColorCombo"/>
-      </item>
-      <item>
-       <widget class="QSpinBox" name="hudColorR">
-        <property name="maximum">
-         <number>255</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSpinBox" name="hudColorG">
-        <property name="maximum">
-         <number>255</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSpinBox" name="hudColorB">
-        <property name="maximum">
-         <number>255</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="hudColorResult">
-        <property name="minimumSize">
-         <size>
-          <width>25</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QGroupBox" name="framerate60">
-     <property name="title">
-      <string>60 FPS</string>
+      <string>Duckstation</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QCheckBox" name="framerate60Enable">
+       <widget class="QCheckBox" name="duckstation60FPS">
         <property name="text">
-         <string>Enable</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="expandHeroAndLegendShops">
-     <property name="title">
-      <string>Expand Hero And Legend Shops</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QCheckBox" name="expandHeroAndLegendShopsEnable">
-        <property name="text">
-         <string>Enable</string>
+         <string>60 FPS</string>
         </property>
        </widget>
       </item>
