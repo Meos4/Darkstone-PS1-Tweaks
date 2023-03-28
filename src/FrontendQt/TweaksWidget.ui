@@ -71,6 +71,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="tweaksPermanentShopsItems">
+        <property name="text">
+         <string>Permanent Shops Items</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="tweaksHudColor">
         <property name="title">
          <string>Hud Color</string>

@@ -65,6 +65,11 @@ void Tweaks::expandHeroAndLegendShops() const
 	executable.write(m_game->offset().file.executable.generateShopFn + 0xC4, jal_sll_v1_2);
 }
 
+void Tweaks::permanentShopsItems() const
+{
+	m_game->executable().write(m_game->offset().file.executable.buyShopFn + 0x1B8, Mips_t(0));
+}
+
 void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
 {
 	m_game->executable().write(m_game->offset().file.executable.hudColor, hud);

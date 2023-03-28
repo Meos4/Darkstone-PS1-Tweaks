@@ -26,6 +26,7 @@ public:
 				hudColor,
 				generateShopFn,
 				drawMiniMapFn,
+				buyShopFn,
 				cc_begin;
 		} executable;
 	};

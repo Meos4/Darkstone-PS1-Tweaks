@@ -32,6 +32,7 @@ filePal
 		.hudColor = 0x000D5D48,
 		.generateShopFn = 0x000AEBDC,
 		.drawMiniMapFn = 0x000369BC,
+		.buyShopFn = 0x000B0188,
 		.cc_begin = 0x00120CD0
 	}
 },
