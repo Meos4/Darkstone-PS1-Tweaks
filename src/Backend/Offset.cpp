@@ -31,6 +31,7 @@ filePal
 		.generateTheftItemFn = 0x00087604,
 		.hudColor = 0x000D5D48,
 		.generateShopFn = 0x000AEBDC,
+		.drawMiniMapFn = 0x000369BC,
 		.cc_begin = 0x00120CD0
 	}
 },

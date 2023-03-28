@@ -210,4 +210,15 @@ void Tweaks::framerate60() const
 
 	// Death Camera
 	executable.write(m_game->offset().file.executable.mainLoopFn + 0x408, Mips::li(Mips::Register::t0, 32 / 3));
+
+	// Mini Map
+	static constexpr s16 miniMapSpeed{ 12 / 2 };
+
+	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1E24, Mips::li(Mips::Register::s2, miniMapSpeed));
+	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1E54, Mips::li(Mips::Register::s2, -miniMapSpeed));
+	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1E7C, Mips::li(Mips::Register::s5, miniMapSpeed));
+	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1EAC, Mips::li(Mips::Register::s5, -miniMapSpeed));
+
+	executable.write(m_game->offset().file.executable.drawMiniMapFn + 0xE8, Mips_t(0));
+	executable.write(m_game->offset().file.executable.drawMiniMapFn + 0x138, Mips_t(0));
 }

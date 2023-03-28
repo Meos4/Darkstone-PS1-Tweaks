@@ -25,6 +25,7 @@ public:
 				generateTheftItemFn,
 				hudColor,
 				generateShopFn,
+				drawMiniMapFn,
 				cc_begin;
 		} executable;
 	};
