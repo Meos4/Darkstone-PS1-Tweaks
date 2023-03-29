@@ -27,6 +27,7 @@ public:
 				generateShopFn,
 				drawMiniMapFn,
 				buyShopFn,
+				setPrayerFn,
 				cc_begin;
 		} executable;
 	};
@@ -38,6 +39,8 @@ public:
 			getLevelPoolIdFn,
 			mapId,
 			mapInformations,
+			setPlayerStatsFn,
+			setTimingFn,
 			cc_begin;
 	};
 

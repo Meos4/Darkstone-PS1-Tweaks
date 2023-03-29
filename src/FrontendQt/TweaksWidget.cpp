@@ -20,6 +20,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		{ SETTINGS(m_ui.tweaksUnlockCostumeByDefault) },
 		{ SETTINGS(m_ui.tweaksExpandHeroAndLegendShops) },
 		{ SETTINGS(m_ui.tweaksPermanentShopsItems) },
+		{ SETTINGS(m_ui.tweaksSpellDurability3Stacks) },
 		{ SETTINGS(m_ui.fixesTheftBlock) },
 		{ SETTINGS(m_ui.fixesTheftEmptyJewelry) },
 		{ SETTINGS(m_ui.duckstation60FPS) }
@@ -96,6 +97,11 @@ void TweaksWidget::write() const
 	if (m_ui.tweaksPermanentShopsItems->isChecked())
 	{
 		m_tweaks->permanentShopsItems();
+	}
+
+	if (m_ui.tweaksSpellDurability3Stacks->isChecked())
+	{
+		m_tweaks->spellDurability3Stacks();
 	}
 
 	m_tweaks->hudColor(hudColor());

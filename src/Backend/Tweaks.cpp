@@ -2,6 +2,7 @@
 
 #include "Backend/CustomCode.hpp"
 #include "Backend/Mips.hpp"
+#include "Common/DstException.hpp"
 
 #include <type_traits>
 
@@ -68,6 +69,135 @@ void Tweaks::expandHeroAndLegendShops() const
 void Tweaks::permanentShopsItems() const
 {
 	m_game->executable().write(m_game->offset().file.executable.buyShopFn + 0x1B8, Mips_t(0));
+}
+
+void Tweaks::spellDurability3Stacks() const
+{
+	using Buff_t = u32;
+
+	enum : Buff_t
+	{
+		BUFF_LYCANTHROPY,
+		BUFF_STATS,
+		BUFF_TIMING
+	};
+
+	struct BuffInfo
+	{
+		u32 locShift;
+		u32 structShift;
+		Buff_t buff;
+	};
+
+	static constexpr std::array<BuffInfo, 14> buffInfos
+	{{
+		// Lycanthropy
+		{ 0x10C, 0x454, BUFF_LYCANTHROPY },
+		// Meditation
+		{ 0x210, 0x3F4, BUFF_STATS },
+		// Concentration
+		{ 0x278, 0x3FC, BUFF_STATS },
+		// Orientation
+		{ 0x2EC, 0x404, BUFF_TIMING },
+		// Light
+		{ 0x354, 0x3A4, BUFF_TIMING },
+		// Haste
+		{ 0x3BC, 0x2F4, BUFF_TIMING },
+		// Night Vision
+		{ 0x41C, 0x2EC, BUFF_TIMING },
+		// Ray Of Injury
+		{ 0x4D4, 0x394, BUFF_TIMING },
+		// Absorption
+		{ 0x534, 0x30C, BUFF_TIMING },
+		// Invisibility
+		{ 0x594, 0x32C, BUFF_TIMING },
+		// Reflections
+		{ 0x1828, 0x374, BUFF_TIMING },
+		// Detection
+		{ 0x192C, 0x354, BUFF_TIMING },
+		// Detection Wizard
+		{ 0x198C, 0x42C, BUFF_TIMING },
+		// Berserker
+		{ 0x1A88, 0x364, BUFF_TIMING }
+	}};
+
+	const auto setSpellDurability3StacksOffset{ m_game->setSpellDurability3StacksOffset() };
+
+	const auto j_function{ Mips::j(CustomCode::SetSpellDurability3Stacks::functionOffset(setSpellDurability3StacksOffset.game)) };
+
+	const auto 
+		li32_setPlayerStats{ Mips::li32(Mips::Register::t0, m_game->offset().game.setPlayerStatsFn) },
+		li32_setTiming{ Mips::li32(Mips::Register::t0, m_game->offset().game.setTimingFn) };
+
+	const CustomCode::SetSpellDurability3Stacks setSpellDurability3StacksFn
+	{
+		.lycanthropy =
+		{
+			0x01334821, // addu t1, s3
+			li32_setPlayerStats[0],
+			j_function,
+			li32_setPlayerStats[1]
+		},
+		.stats =
+		{
+			0x01304821, // addu t1, s0
+			li32_setPlayerStats[0],
+			j_function,
+			li32_setPlayerStats[1]
+		},
+		.timing =
+		{
+			0x01304821, // addu t1, s0
+			li32_setTiming[0],
+			j_function,
+			li32_setTiming[1]
+		},
+		.function =
+		{
+			0x27BDFFF0, // addiu sp, -0x10
+			0x8D2A0000, // lw t2, 0(t1)
+			0x00405821, // move t3, v0
+			0x01425021, // addu t2, v0
+			0x000B5840, // sll t3, 1
+			0x01625821, // addu t3, v0
+			0x014B102B, // sltu v0, t2, t3
+			0x14400002, // beqz v0, +2
+			0xAFBF0000, // sw ra, 0(sp)
+			0x01605021, // move t2, t3
+			0x0100F809, // jalr t0
+			0xAD2A0000, // sw t2, 0(t1)
+			0x8FBF0000, // lw ra, 0(sp)
+			0x00000000, // nop
+			0x03E00008, // jr ra
+			0x27BD0010  // addiu sp, 0x10
+		},
+	};
+
+	auto executable{ m_game->executable() };
+
+	executable.write(setSpellDurability3StacksOffset.file, setSpellDurability3StacksFn);
+
+	const auto
+		lycanthropyOffset{ CustomCode::SetSpellDurability3Stacks::lycanthropyOffset(setSpellDurability3StacksOffset.game) },
+		statsOffset{ CustomCode::SetSpellDurability3Stacks::statsOffset(setSpellDurability3StacksOffset.game) },
+		timingOffset{ CustomCode::SetSpellDurability3Stacks::timingOffset(setSpellDurability3StacksOffset.game) };
+
+	for (const auto& info : buffInfos)
+	{
+		auto buffOffset = [&]()
+		{
+			switch (info.buff)
+			{
+			case BUFF_LYCANTHROPY: return lycanthropyOffset;
+			case BUFF_STATS: return statsOffset;
+			case BUFF_TIMING: return timingOffset;
+			default: throw DstException{ "Invalid buff: {}", info.buff };
+			}
+		};
+
+		executable.write(m_game->offset().file.executable.setPrayerFn + info.locShift, 
+			std::array<Mips_t, 2>{ Mips::jal(buffOffset()), Mips::li(Mips::Register::t1, info.structShift) });
+	}
 }
 
 void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const

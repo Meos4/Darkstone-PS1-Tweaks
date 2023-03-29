@@ -78,6 +78,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="tweaksSpellDurability3Stacks">
+        <property name="text">
+         <string>Spell Durability 3 Stacks</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="tweaksHudColor">
         <property name="title">
          <string>Hud Color</string>

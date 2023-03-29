@@ -33,6 +33,7 @@ filePal
 		.generateShopFn = 0x000AEBDC,
 		.drawMiniMapFn = 0x000369BC,
 		.buyShopFn = 0x000B0188,
+		.setPrayerFn = 0x0009975C,
 		.cc_begin = 0x00120CD0
 	}
 },
@@ -56,6 +57,8 @@ gamePal
 	.getLevelPoolIdFn = 0x80043850,
 	.mapId = 0x801042FC,
 	.mapInformations = 0x800EF1B8,
+	.setPlayerStatsFn = 0x800A5870,
+	.setTimingFn = 0x8007BDE0,
 	.cc_begin = 0x801304F0
 },
 gamePalEn

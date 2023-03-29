@@ -133,6 +133,16 @@ Game::CustomCodeOffset Game::setHeroAndLegendBonusShopOffset() const
 	return cc;
 }
 
+Game::CustomCodeOffset Game::setSpellDurability3StacksOffset() const
+{
+	auto cc{ setHeroAndLegendBonusShopOffset() };
+
+	cc.file += sizeof(CustomCode::SetHeroAndLegendBonusShop);
+	cc.game += sizeof(CustomCode::SetHeroAndLegendBonusShop);
+
+	return cc;
+}
+
 std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)
 {
 	if (!std::filesystem::is_regular_file(isoPath))
