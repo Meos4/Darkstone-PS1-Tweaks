@@ -85,6 +85,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="tweaksTalkToNPCsWhileInvisible">
+        <property name="text">
+         <string>Talk To NPCs While Invisible</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="tweaksHudColor">
         <property name="title">
          <string>Hud Color</string>

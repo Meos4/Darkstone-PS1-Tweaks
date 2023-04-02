@@ -28,6 +28,7 @@ public:
 				drawMiniMapFn,
 				buyShopFn,
 				setPrayerFn,
+				inGameBehaviorFn,
 				cc_begin;
 		} executable;
 	};

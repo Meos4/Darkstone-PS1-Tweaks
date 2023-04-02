@@ -34,6 +34,7 @@ filePal
 		.drawMiniMapFn = 0x000369BC,
 		.buyShopFn = 0x000B0188,
 		.setPrayerFn = 0x0009975C,
+		.inGameBehaviorFn = 0x0008E6D0,
 		.cc_begin = 0x00120CD0
 	}
 },

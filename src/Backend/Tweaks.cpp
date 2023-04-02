@@ -200,6 +200,16 @@ void Tweaks::spellDurability3Stacks() const
 	}
 }
 
+void Tweaks::talkToNPCsWhileInvisible() const
+{
+	auto executable{ m_game->executable() };
+
+	// Shop
+	executable.write(m_game->offset().file.executable.inGameBehaviorFn + 0x4258, Mips_t(0));
+	// NPC
+	executable.write(m_game->offset().file.executable.inGameBehaviorFn + 0x42E4, Mips_t(0));
+}
+
 void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
 {
 	m_game->executable().write(m_game->offset().file.executable.hudColor, hud);
