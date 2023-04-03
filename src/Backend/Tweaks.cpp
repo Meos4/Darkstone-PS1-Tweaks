@@ -1,6 +1,7 @@
 #include "Tweaks.hpp"
 
 #include "Backend/CustomCode.hpp"
+#include "Backend/File.hpp"
 #include "Backend/Mips.hpp"
 #include "Common/DstException.hpp"
 
@@ -64,6 +65,31 @@ void Tweaks::expandHeroAndLegendShops() const
 
 	executable.write(setHeroAndLegendBonusShopOffset.file, setHeroAndLegendBonusShopFn);
 	executable.write(m_game->offset().file.executable.generateShopFn + 0xC4, jal_sll_v1_2);
+}
+
+void Tweaks::legendDifficultyRequirement60To50() const
+{
+	const auto data1_psm{ m_game->file(File::DATA1_PSM) };
+	const auto version{ m_game->version() };
+
+	if (version == Version::NtscU)
+	{
+		data1_psm->write(0x000C11E1, '5');
+	}
+	else if (version == Version::Pal)
+	{
+		data1_psm->write(0x000C11DE, '5');
+		data1_psm->write(0x000B9C1E, '5');
+		data1_psm->write(0x000C835B, '5');
+		data1_psm->write(0x000CFE4D, '5');
+		data1_psm->write(0x000D73E8, '5');
+	}
+	else if (version == Version::PalEn)
+	{
+		data1_psm->write(0x000C11DE, '5');
+	}
+
+	m_game->executable().write(m_game->offset().file.executable.startDifficultyMenuFn + 0x25C, Mips_t(0x2CE70032)); // sltiu a3, a3, 0x32
 }
 
 void Tweaks::permanentShopsItems() const

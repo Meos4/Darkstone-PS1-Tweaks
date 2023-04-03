@@ -35,6 +35,7 @@ filePal
 		.buyShopFn = 0x000B0188,
 		.setPrayerFn = 0x0009975C,
 		.inGameBehaviorFn = 0x0008E6D0,
+		.startDifficultyMenuFn = 0x00075FD4,
 		.cc_begin = 0x00120CD0
 	}
 },

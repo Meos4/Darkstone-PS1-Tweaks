@@ -23,6 +23,7 @@ public:
 
 	void unlockCostumeByDefault() const;
 	void expandHeroAndLegendShops() const;
+	void legendDifficultyRequirement60To50() const;
 	void permanentShopsItems() const;
 	void spellDurability3Stacks() const;
 	void talkToNPCsWhileInvisible() const;

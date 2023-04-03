@@ -71,6 +71,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="tweaks60To50LegendDifficultyLevelRequirement">
+        <property name="text">
+         <string>60 To 50 Legend Difficulty Level Requirement</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="tweaksPermanentShopsItems">
         <property name="text">
          <string>Permanent Shops Items</string>

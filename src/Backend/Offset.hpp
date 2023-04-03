@@ -29,6 +29,7 @@ public:
 				buyShopFn,
 				setPrayerFn,
 				inGameBehaviorFn,
+				startDifficultyMenuFn,
 				cc_begin;
 		} executable;
 	};

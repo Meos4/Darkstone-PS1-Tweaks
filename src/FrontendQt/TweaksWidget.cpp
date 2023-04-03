@@ -19,6 +19,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 	{
 		{ SETTINGS(m_ui.tweaksUnlockCostumeByDefault) },
 		{ SETTINGS(m_ui.tweaksExpandHeroAndLegendShops) },
+		{ SETTINGS(m_ui.tweaks60To50LegendDifficultyLevelRequirement) },
 		{ SETTINGS(m_ui.tweaksPermanentShopsItems) },
 		{ SETTINGS(m_ui.tweaksSpellDurability3Stacks) },
 		{ SETTINGS(m_ui.tweaksTalkToNPCsWhileInvisible) },
@@ -93,6 +94,11 @@ void TweaksWidget::write() const
 	if (m_ui.tweaksExpandHeroAndLegendShops->isChecked())
 	{
 		m_tweaks->expandHeroAndLegendShops();
+	}
+
+	if (m_ui.tweaks60To50LegendDifficultyLevelRequirement->isChecked())
+	{
+		m_tweaks->legendDifficultyRequirement60To50();
 	}
 
 	if (m_ui.tweaksPermanentShopsItems->isChecked())
