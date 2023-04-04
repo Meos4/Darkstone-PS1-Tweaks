@@ -37,5 +37,4 @@ private:
 
 	std::unique_ptr<Tweaks> m_tweaks;
 	std::vector<TweaksQCheckBox> m_qCheckBox;
-	std::vector<TweaksQComboBox> m_qComboBox;
 };

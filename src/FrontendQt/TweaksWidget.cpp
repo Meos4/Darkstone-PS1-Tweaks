@@ -29,11 +29,6 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		{ SETTINGS(m_ui.duckstation60FPS) }
 	};
 
-	m_qComboBox =
-	{
-
-	};
-
 	m_ui.tweaksHudColorCombo->setStyleSheet("font-weight: normal;");
 	m_ui.tweaksHudColorR->setStyleSheet("font-weight: normal;");
 	m_ui.tweaksHudColorG->setStyleSheet("font-weight: normal;");
@@ -153,11 +148,6 @@ void TweaksWidget::loadSettings(const std::filesystem::path& path)
 			checkBox.load(json);
 		}
 
-		for (auto& comboBox : m_qComboBox)
-		{
-			comboBox.load(json);
-		}
-
 		for (std::size_t i{}; i < m_colors.size(); ++i)
 		{
 			Json::set<u8>(json["colors"][i], "red", [&](auto v) { m_colors[i].red = v; });
@@ -188,11 +178,6 @@ void TweaksWidget::saveSettings(const std::filesystem::path& path)
 	for (const auto& checkBox : m_qCheckBox)
 	{
 		checkBox.save(&json);
-	}
-
-	for (const auto& comboBox : m_qComboBox)
-	{
-		comboBox.save(&json);
 	}
 
 	UIToColor(m_previousThemeIndex);
