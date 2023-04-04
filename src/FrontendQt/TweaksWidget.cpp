@@ -64,12 +64,12 @@ void TweaksWidget::enableUI(std::shared_ptr<Game> game)
 		m_isFirstEnableUI = false;
 	}
 
-	setEnabled(true);
+	m_ui.scrollAreaWidget->setEnabled(true);
 }
 
 void TweaksWidget::disableUI()
 {
-	setDisabled(true);
+	m_ui.scrollAreaWidget->setDisabled(true);
 	if (m_tweaks)
 	{
 		m_tweaks.reset();
