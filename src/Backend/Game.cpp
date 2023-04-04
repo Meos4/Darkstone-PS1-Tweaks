@@ -125,42 +125,22 @@ Game::CustomCodeOffset Game::setTheftJewelryBonusOffset() const
 
 Game::CustomCodeOffset Game::setHeroAndLegendBonusShopOffset() const
 {
-	auto cc{ setTheftJewelryBonusOffset() };
-
-	cc.file += sizeof(CustomCode::GenerateJewelryBonus);
-	cc.game += sizeof(CustomCode::GenerateJewelryBonus);
-
-	return cc;
+	return setTheftJewelryBonusOffset() += sizeof(CustomCode::GenerateJewelryBonus);
 }
 
 Game::CustomCodeOffset Game::setSpellDurability3StacksOffset() const
 {
-	auto cc{ setHeroAndLegendBonusShopOffset() };
-
-	cc.file += sizeof(CustomCode::SetHeroAndLegendBonusShop);
-	cc.game += sizeof(CustomCode::SetHeroAndLegendBonusShop);
-
-	return cc;
+	return setHeroAndLegendBonusShopOffset() += sizeof(CustomCode::SetHeroAndLegendBonusShop);
 }
 
 Game::CustomCodeOffset Game::divideXpBarSizeBy10Offset() const
 {
-	auto cc{ setSpellDurability3StacksOffset() };
-
-	cc.file += sizeof(CustomCode::SetSpellDurability3Stacks);
-	cc.game += sizeof(CustomCode::SetSpellDurability3Stacks);
-
-	return cc;
+	return setSpellDurability3StacksOffset() += sizeof(CustomCode::SetSpellDurability3Stacks);
 }
 
 Game::CustomCodeOffset Game::checkCharacterLevelToSaveOffset() const
 {
-	auto cc{ divideXpBarSizeBy10Offset() };
-
-	cc.file += sizeof(CustomCode::DivideXpBarSizeBy10);
-	cc.game += sizeof(CustomCode::DivideXpBarSizeBy10);
-
-	return cc;
+	return divideXpBarSizeBy10Offset() += sizeof(CustomCode::DivideXpBarSizeBy10);
 }
 
 std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)

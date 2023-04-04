@@ -18,6 +18,13 @@ public:
 	{
 		u32 file;
 		u32 game;
+
+		constexpr auto& operator+=(u32 val)
+		{
+			file += val;
+			game += val;
+			return *this;
+		}
 	};
 
 	static constexpr auto sectorSize{ 2048u };
