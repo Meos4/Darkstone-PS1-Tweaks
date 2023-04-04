@@ -36,6 +36,7 @@ filePal
 		.setPrayerFn = 0x0009975C,
 		.inGameBehaviorFn = 0x0008E6D0,
 		.startDifficultyMenuFn = 0x00075FD4,
+		.drawHudFn = 0x0004E088,
 		.cc_begin = 0x00120CD0
 	}
 },

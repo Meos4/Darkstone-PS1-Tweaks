@@ -30,6 +30,7 @@ public:
 				setPrayerFn,
 				inGameBehaviorFn,
 				startDifficultyMenuFn,
+				drawHudFn,
 				cc_begin;
 		} executable;
 	};

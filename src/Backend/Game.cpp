@@ -143,6 +143,16 @@ Game::CustomCodeOffset Game::setSpellDurability3StacksOffset() const
 	return cc;
 }
 
+Game::CustomCodeOffset Game::divideXpBarSizeBy10Offset() const
+{
+	auto cc{ setSpellDurability3StacksOffset() };
+
+	cc.file += sizeof(CustomCode::SetSpellDurability3Stacks);
+	cc.game += sizeof(CustomCode::SetSpellDurability3Stacks);
+
+	return cc;
+}
+
 std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)
 {
 	if (!std::filesystem::is_regular_file(isoPath))

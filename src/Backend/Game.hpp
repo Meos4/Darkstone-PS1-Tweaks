@@ -47,6 +47,7 @@ public:
 	CustomCodeOffset setTheftJewelryBonusOffset() const;
 	CustomCodeOffset setHeroAndLegendBonusShopOffset() const;
 	CustomCodeOffset setSpellDurability3StacksOffset() const;
+	CustomCodeOffset divideXpBarSizeBy10Offset() const;
 
 	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:

@@ -241,6 +241,27 @@ void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
 	m_game->executable().write(m_game->offset().file.executable.hudColor, hud);
 }
 
+void Tweaks::expBarGlitch() const
+{
+	static constexpr CustomCode::DivideXpBarSizeBy10 divideXpBarSizeBy10Fn
+	{
+		0x00073902, // srl a3, 4
+		0x000A5102, // srl t2, 4
+		0x00E43823, // subu a3, a0
+		0x254A0001, // addiu t2, 1
+		0x03E00008, // jr ra
+		0x000710C0  // sll v0, a3, 3
+	};
+
+	auto executable{ m_game->executable() };
+
+	const auto divideXpBarSizeBy10Offset{ m_game->divideXpBarSizeBy10Offset() };
+
+	executable.write(divideXpBarSizeBy10Offset.file, divideXpBarSizeBy10Fn);
+	executable.write(m_game->offset().file.executable.drawHudFn + 0x794,
+		std::array<Mips_t, 2>{ Mips::jal(divideXpBarSizeBy10Offset.game), 0x00042102 }); // srl a0, 4
+}
+
 void Tweaks::theftBlock() const
 {
 	auto executable{ m_game->executable() };

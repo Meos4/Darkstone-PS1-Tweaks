@@ -32,4 +32,6 @@ namespace CustomCode
 		static constexpr u32 timingOffset(u32 begin) { return statsOffset(begin) + sizeof(stats); };
 		static constexpr u32 functionOffset(u32 begin) { return timingOffset(begin) + sizeof(timing); };
 	};
+
+	using DivideXpBarSizeBy10 = std::array<Mips_t, 6>;
 }

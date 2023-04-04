@@ -21,6 +21,13 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
+       <widget class="QCheckBox" name="fixesExpBarGlitch">
+        <property name="text">
+         <string>Exp Bar Glitch</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="fixesTheftBlock">
         <property name="text">
          <string>Theft Block</string>
