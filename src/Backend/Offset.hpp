@@ -31,6 +31,7 @@ public:
 				inGameBehaviorFn,
 				startDifficultyMenuFn,
 				drawHudFn,
+				overrideCharacterFn,
 				cc_begin;
 		} executable;
 	};

@@ -262,6 +262,30 @@ void Tweaks::expBarGlitch() const
 		std::array<Mips_t, 2>{ Mips::jal(divideXpBarSizeBy10Offset.game), 0x00042102 }); // srl a0, 4
 }
 
+void Tweaks::cantSaveIfLevel59() const
+{
+	static constexpr CustomCode::CheckCharacterLevelToSave checkCharacterLevelToSaveFn
+	{
+		0x10400006, // beqz v0, +6
+		0x9203005F, // lbu v1, 0x5F(s0)
+		0x92420ABF, // lbu v0, 0xABF(s2)
+		0x00000000, // nop
+		0x14430002, // bne v0, v1, +2
+		0x00001021, // move v0, zero
+		0x24020001, // li v0, 1
+		0x03E00008, // jr ra
+		0x00000000  // nop
+	};
+
+	auto executable{ m_game->executable() };
+
+	const auto checkCharacterLevelToSaveOffset{ m_game->checkCharacterLevelToSaveOffset() };
+
+	executable.write(checkCharacterLevelToSaveOffset.file, checkCharacterLevelToSaveFn);
+	executable.write(m_game->offset().file.executable.overrideCharacterFn + 0x68,
+		Mips::jal(checkCharacterLevelToSaveOffset.game));
+}
+
 void Tweaks::theftBlock() const
 {
 	auto executable{ m_game->executable() };

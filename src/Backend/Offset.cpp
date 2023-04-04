@@ -37,6 +37,7 @@ filePal
 		.inGameBehaviorFn = 0x0008E6D0,
 		.startDifficultyMenuFn = 0x00075FD4,
 		.drawHudFn = 0x0004E088,
+		.overrideCharacterFn = 0x00011AAC,
 		.cc_begin = 0x00120CD0
 	}
 },

@@ -24,6 +24,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		{ SETTINGS(m_ui.tweaksSpellDurability3Stacks) },
 		{ SETTINGS(m_ui.tweaksTalkToNPCsWhileInvisible) },
 		{ SETTINGS(m_ui.fixesExpBarGlitch) },
+		{ SETTINGS(m_ui.fixesCantSaveIfLevel59) },
 		{ SETTINGS(m_ui.fixesTheftBlock) },
 		{ SETTINGS(m_ui.fixesTheftEmptyJewelry) },
 		{ SETTINGS(m_ui.duckstation60FPS) }
@@ -117,6 +118,11 @@ void TweaksWidget::write() const
 	if (m_ui.fixesExpBarGlitch->isChecked())
 	{
 		m_tweaks->expBarGlitch();
+	}
+
+	if (m_ui.fixesCantSaveIfLevel59->isChecked())
+	{
+		m_tweaks->cantSaveIfLevel59();
 	}
 
 	if (m_ui.fixesTheftBlock->isChecked())

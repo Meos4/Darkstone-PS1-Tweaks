@@ -153,6 +153,16 @@ Game::CustomCodeOffset Game::divideXpBarSizeBy10Offset() const
 	return cc;
 }
 
+Game::CustomCodeOffset Game::checkCharacterLevelToSaveOffset() const
+{
+	auto cc{ divideXpBarSizeBy10Offset() };
+
+	cc.file += sizeof(CustomCode::DivideXpBarSizeBy10);
+	cc.game += sizeof(CustomCode::DivideXpBarSizeBy10);
+
+	return cc;
+}
+
 std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)
 {
 	if (!std::filesystem::is_regular_file(isoPath))

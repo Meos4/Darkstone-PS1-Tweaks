@@ -28,6 +28,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="fixesCantSaveIfLevel59">
+        <property name="text">
+         <string>Can't Save If Level &gt;59</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="fixesTheftBlock">
         <property name="text">
          <string>Theft Block</string>

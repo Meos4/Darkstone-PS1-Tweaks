@@ -48,6 +48,7 @@ public:
 	CustomCodeOffset setHeroAndLegendBonusShopOffset() const;
 	CustomCodeOffset setSpellDurability3StacksOffset() const;
 	CustomCodeOffset divideXpBarSizeBy10Offset() const;
+	CustomCodeOffset checkCharacterLevelToSaveOffset() const;
 
 	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:

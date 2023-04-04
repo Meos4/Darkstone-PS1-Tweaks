@@ -29,6 +29,7 @@ public:
 	void talkToNPCsWhileInvisible() const;
 	void hudColor(const Tweaks::HudColorArray& hud) const;
 	void expBarGlitch() const;
+	void cantSaveIfLevel59() const;
 	void theftBlock() const;
 	void theftEmptyJewelry() const;
 	void framerate60() const;
