@@ -35,7 +35,7 @@ namespace CustomCode
 
 	using DivideXpBarSizeBy10 = std::array<Mips_t, 6>;
 
-	using CheckCharacterLevelToSave = std::array<Mips_t, 9>;
+	using CheckCharacterLevelToSave = std::array<Mips_t, 10>;
 
 	using Return0StatsIfMaximum = std::array<Mips_t, 41>;
 }

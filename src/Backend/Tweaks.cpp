@@ -339,6 +339,7 @@ void Tweaks::cantSaveIfLevel59() const
 {
 	static constexpr CustomCode::CheckCharacterLevelToSave checkCharacterLevelToSaveFn
 	{
+		0x0043102B, // sltu v0, v0, v1
 		0x10400006, // beqz v0, +6
 		0x9203005F, // lbu v1, 0x5F(s0)
 		0x92420ABF, // lbu v0, 0xABF(s2)
@@ -356,7 +357,7 @@ void Tweaks::cantSaveIfLevel59() const
 
 	executable.write(checkCharacterLevelToSaveOffset.file, checkCharacterLevelToSaveFn);
 	executable.write(m_game->offset().file.executable.overrideCharacterFn + 0x68,
-		Mips::jal(checkCharacterLevelToSaveOffset.game));
+		std::array<Mips_t, 2> { Mips::jal(checkCharacterLevelToSaveOffset.game), 0x00000000 });
 }
 
 void Tweaks::theftBlock() const
