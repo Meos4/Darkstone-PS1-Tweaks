@@ -32,6 +32,7 @@ public:
 				startDifficultyMenuFn,
 				drawHudFn,
 				overrideCharacterFn,
+				inventoryLoopFn,
 				cc_begin;
 		} executable;
 	};
@@ -45,6 +46,7 @@ public:
 			mapInformations,
 			setPlayerStatsFn,
 			setTimingFn,
+			baseStatsPtr,
 			cc_begin;
 	};
 

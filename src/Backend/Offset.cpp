@@ -38,6 +38,7 @@ filePal
 		.startDifficultyMenuFn = 0x00075FD4,
 		.drawHudFn = 0x0004E088,
 		.overrideCharacterFn = 0x00011AAC,
+		.inventoryLoopFn = 0x000581DC,
 		.cc_begin = 0x00120CD0
 	}
 },
@@ -63,6 +64,7 @@ gamePal
 	.mapInformations = 0x800EF1B8,
 	.setPlayerStatsFn = 0x800A5870,
 	.setTimingFn = 0x8007BDE0,
+	.baseStatsPtr = 0x800E8A50,
 	.cc_begin = 0x801304F0
 },
 gamePalEn

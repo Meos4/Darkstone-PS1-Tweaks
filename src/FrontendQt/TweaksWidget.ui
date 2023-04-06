@@ -123,6 +123,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="tweaksHideLevelUpXPIfStatsAreAtMaximum">
+            <property name="text">
+             <string>Hide Level Up &quot;XP!&quot; If Stats Are At Maximum</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QGroupBox" name="tweaksHudColor">
             <property name="title">
              <string>Hud Color</string>

@@ -27,6 +27,7 @@ public:
 	void permanentShopsItems() const;
 	void spellDurability3Stacks() const;
 	void talkToNPCsWhileInvisible() const;
+	void hideLevelUpXPIfStatsAreAtMaximum() const;
 	void hudColor(const Tweaks::HudColorArray& hud) const;
 	void expBarGlitch() const;
 	void cantSaveIfLevel59() const;

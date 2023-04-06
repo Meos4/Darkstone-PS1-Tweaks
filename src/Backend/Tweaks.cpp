@@ -236,6 +236,79 @@ void Tweaks::talkToNPCsWhileInvisible() const
 	executable.write(m_game->offset().file.executable.inGameBehaviorFn + 0x42E4, Mips_t(0));
 }
 
+void Tweaks::hideLevelUpXPIfStatsAreAtMaximum() const
+{
+	const auto li32_baseStatsPtr{ Mips::li32(Mips::Register::a1, m_game->offset().game.baseStatsPtr) };
+
+	const CustomCode::Return0StatsIfMaximum return0StatsIfMaximumFn
+	{
+		0x27BDFFE0, // addiu sp, -0x20
+		0xAFA30000, // sw v1, 0(sp)
+		0xAFA40004, // sw a0, 4(sp)
+		0xAFA50008, // sw a1, 8(sp)
+		0xAFA6000C, // sw a2, 0xC(sp)
+
+		// Set class base stats ptr
+		0x90450209, // lbu a1, 0x209(v0)
+		0xAFA70010, // sw a3, 0x10(sp)
+		0x00052040, // sll a0, a1, 1
+		0x00852021, // addu a0, a1
+		0x00042080, // sll a0, 2
+		0x00852023, // subu a0, a1
+		0x00042080, // sll a0, 2
+		0x00852023, // subu a0, a1
+		0x000420C0, // sll a0, 3
+		li32_baseStatsPtr[0],
+		li32_baseStatsPtr[1],
+		0x8CA50000, // lw a1, 0(a1)
+		0x24420244, // addiu v0, 0x244
+		0x00A42821, // addu a1, a0
+
+		// If stats are not lower than max stats
+		0x24040004, // li a0, 4
+		0x00003021, // move a2, zero
+		0x94430000, // lhu v1, 0(v0)
+		0x94A70000, // lhu a3, 0(a1)
+		0x24420002, // addiu v0, 2
+		0x0067182B, // sltu v1, v1, a3
+		0x14600005, // bnez v1, 5
+		0x24C60001, // addiu a2, 1
+		0x14C4FFF9, // bne a2, a0, -6
+		0x24A50002, // addiu a1, 2
+
+		// Return 0
+		0x10000004, // b, 4
+		0x00001021, // move v0, zero
+
+		// Else return stats
+		0x00063040, // sll a2, 1
+		0x00461023, // subu v0, a2
+		0x94420032, // lhu v0, 0x32(v0)
+
+		0x8FA70010, // lw a3, 0x10(sp)
+		0x8FA6000C, // lw a2, 0xC(sp)
+		0x8FA50008, // lw a1, 8(sp)
+		0x8FA40004, // lw a0, 4(sp)
+		0x8FA30000, // lw v1, 0(sp)
+		0x03E00008, // jr ra
+		0x27BD0020  // addiu sp, 0x20
+	};
+
+	auto executable{ m_game->executable() };
+
+	const auto return0StatsIfMaximumOffset{ m_game->return0StatsIfMaximumOffset() };
+
+	executable.write(return0StatsIfMaximumOffset.file, return0StatsIfMaximumFn);
+
+	const auto jal_return0StatsIfMaximumOffset{ Mips::jal(return0StatsIfMaximumOffset.game) };
+
+	executable.write(m_game->offset().file.executable.drawHudFn + 0x1400,
+		std::array<Mips_t, 2>{ jal_return0StatsIfMaximumOffset, Mips_t(0x03201021) } ); // move v0, t9
+
+	executable.write(m_game->offset().file.executable.inventoryLoopFn + 0x19C4,
+		std::array<Mips_t, 2>{ jal_return0StatsIfMaximumOffset, Mips_t(0x01801021) } ); // move v0, t4
+}
+
 void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
 {
 	m_game->executable().write(m_game->offset().file.executable.hudColor, hud);

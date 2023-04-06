@@ -23,6 +23,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		{ SETTINGS(m_ui.tweaksPermanentShopsItems) },
 		{ SETTINGS(m_ui.tweaksSpellDurability3Stacks) },
 		{ SETTINGS(m_ui.tweaksTalkToNPCsWhileInvisible) },
+		{ SETTINGS(m_ui.tweaksHideLevelUpXPIfStatsAreAtMaximum) },
 		{ SETTINGS(m_ui.fixesExpBarGlitch) },
 		{ SETTINGS(m_ui.fixesCantSaveIfLevel59) },
 		{ SETTINGS(m_ui.fixesTheftBlock) },
@@ -111,6 +112,11 @@ void TweaksWidget::write() const
 	if (m_ui.tweaksTalkToNPCsWhileInvisible->isChecked())
 	{
 		m_tweaks->talkToNPCsWhileInvisible();
+	}
+
+	if (m_ui.tweaksHideLevelUpXPIfStatsAreAtMaximum->isChecked())
+	{
+		m_tweaks->hideLevelUpXPIfStatsAreAtMaximum();
 	}
 
 	m_tweaks->hudColor(hudColor());

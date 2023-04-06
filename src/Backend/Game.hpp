@@ -56,6 +56,7 @@ public:
 	CustomCodeOffset setSpellDurability3StacksOffset() const;
 	CustomCodeOffset divideXpBarSizeBy10Offset() const;
 	CustomCodeOffset checkCharacterLevelToSaveOffset() const;
+	CustomCodeOffset return0StatsIfMaximumOffset() const;
 
 	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:
