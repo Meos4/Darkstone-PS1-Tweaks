@@ -77,6 +77,29 @@ RawFile Game::executable() const
 	return RawFile{ Game::filePath(File::DRAGON_B_EXE) };
 }
 
+RawFile Game::launcherExecutable() const
+{
+	auto launcherFilename = [this]()
+	{
+		switch (m_version)
+		{
+		case Version::NtscU: return "SLUS_011.82";
+		case Version::Pal: return "SLES_006.12";
+		case Version::PalEn: return "SLES_034.47";
+		default: throw DstException{ "Invalid game version : {}", static_cast<std::underlying_type_t<Version>>(m_version) };
+		}
+	};
+
+	const std::filesystem::path path{ std::format("{}/{}/{}", Path::dstTempDirectory, Path::filesDirectory, launcherFilename()) };
+
+	if (!std::filesystem::is_regular_file(path))
+	{
+		throw DstException{ "\"{}\" file doesn't exist in \"{}\"", path.filename().string(), path.parent_path().string() };
+	}
+
+	return RawFile{ path };
+}
+
 const char* Game::versionText() const
 {
 	return s_versionSerial.at(m_version).version;

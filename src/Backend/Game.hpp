@@ -35,6 +35,7 @@ public:
 
 	std::unique_ptr<RawFile> file(s32 file) const;
 	RawFile executable() const;
+	RawFile launcherExecutable() const;
 
 	template <SameAs<Version>... Args>
 	bool isVersion(Args... versions) const
