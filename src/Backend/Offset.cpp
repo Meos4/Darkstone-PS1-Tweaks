@@ -10,6 +10,10 @@ fileNtscU
 	.executable
 	{
 
+	},
+	.launcher
+	{
+
 	}
 },
 filePal
@@ -40,6 +44,10 @@ filePal
 		.overrideCharacterFn = 0x00011AAC,
 		.inventoryLoopFn = 0x000581DC,
 		.cc_begin = 0x00120CD0
+	},
+	.launcher
+	{
+		.VSyncFn = 0x00007C24
 	}
 },
 filePalEn
@@ -47,6 +55,10 @@ filePalEn
 	.executable
 	{
 		
+	},
+	.launcher
+	{
+
 	}
 };
 

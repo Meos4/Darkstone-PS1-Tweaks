@@ -35,6 +35,11 @@ public:
 				inventoryLoopFn,
 				cc_begin;
 		} executable;
+
+		struct
+		{
+			u32 VSyncFn;
+		} launcher;
 	};
 
 	struct Game

@@ -511,4 +511,13 @@ void Tweaks::framerate60() const
 
 	executable.write(m_game->offset().file.executable.drawMiniMapFn + 0xE8, Mips_t(0));
 	executable.write(m_game->offset().file.executable.drawMiniMapFn + 0x138, Mips_t(0));
+
+	// Flag Menu
+	if (m_game->version() == Version::Pal)
+	{
+		auto launcher{ m_game->launcherExecutable() };
+
+		launcher.write(m_game->offset().file.launcher.VSyncFn + 0xD0, Mips_t(0x24050007)); // li a1, 7
+		launcher.write(m_game->offset().file.launcher.VSyncFn + 0xD8, Mips_t(0x24840005)); // addiu a0, 5
+	}
 }
