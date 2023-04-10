@@ -9,11 +9,34 @@ fileNtscU
 {
 	.executable
 	{
-
+		.initInGameMenuLoopFn = 0x00057E48,
+		.inGameMenuLoopFn = 0x00051154,
+		.drawOnScreenFn = 0x00008A70,
+		.cameraSpeedRotateXPlusFn = 0x000662FC,
+		.cameraSpeedRotateXMinusFn = 0x00066150,
+		.cameraSpeedRotateYPlusFn = 0x00066678,
+		.cameraSpeedRotateYMinusFn = 0x000664A8,
+		.mainLoopFn = 0x00009464,
+		.initVariableFn = 0x00008824,
+		.chooseClassLoopFn = 0x00078D2C,
+		.startFn = 0x000B3504,
+		.resetVariableNewMapFn = 0x0000E760,
+		.generateTheftItemFn = 0x0008701C,
+		.hudColor = 0x000D5790,
+		.generateShopFn = 0x000AE5EC,
+		.drawMiniMapFn = 0x000366A0,
+		.buyShopFn = 0x000AFB98,
+		.setPrayerFn = 0x00099168,
+		.inGameBehaviorFn = 0x0008E0DC,
+		.startDifficultyMenuFn = 0x000759EC,
+		.drawHudFn = 0x0004DCEC,
+		.overrideCharacterFn = 0x00011A3C,
+		.inventoryLoopFn = 0x00057E48,
+		.cc_begin = 0x001206D0
 	},
 	.launcher
 	{
-
+		.VSyncFn = 0x000077FC
 	}
 },
 filePal
@@ -54,18 +77,49 @@ filePalEn
 {
 	.executable
 	{
-		
+		.initInGameMenuLoopFn = 0x0005813C,
+		.inGameMenuLoopFn = 0x00051450,
+		.drawOnScreenFn = 0x00008ABC,
+		.cameraSpeedRotateXPlusFn = 0x000667E4,
+		.cameraSpeedRotateXMinusFn = 0x00066638,
+		.cameraSpeedRotateYPlusFn = 0x00066B60,
+		.cameraSpeedRotateYMinusFn = 0x00066990,
+		.mainLoopFn = 0x000094B0,
+		.initVariableFn = 0x0000885C,
+		.chooseClassLoopFn = 0x00079274,
+		.startFn = 0x000B3A1C,
+		.resetVariableNewMapFn = 0x0000E7B8,
+		.generateTheftItemFn = 0x00087564,
+		.hudColor = 0x000D5CA8,
+		.generateShopFn = 0x000AEB3C,
+		.drawMiniMapFn = 0x000369A4,
+		.buyShopFn = 0x000B00E8,
+		.setPrayerFn = 0x000996BC,
+		.inGameBehaviorFn = 0x0008E630,
+		.startDifficultyMenuFn = 0x00075F34,
+		.drawHudFn = 0x0004DFE8,
+		.overrideCharacterFn = 0x00011A94,
+		.inventoryLoopFn = 0x0005813C,
+		.cc_begin = 0x00120C30
 	},
 	.launcher
 	{
-
+		.VSyncFn = 0x000077FC
 	}
 };
 
 static constexpr Offset::Game
 gameNtscU
 {
-	
+	.setItemBonusFn = 0x8004A950,
+	.difficulty = 0x800E2FB4,
+	.getLevelPoolIdFn = 0x80043530,
+	.mapId = 0x80103CFC,
+	.mapInformations = 0x800EEBB8,
+	.setPlayerStatsFn = 0x800A527C,
+	.setTimingFn = 0x8007B858,
+	.baseStatsPtr = 0x800E8478,
+	.cc_begin = 0x8012FEF0
 },
 gamePal
 {
@@ -81,7 +135,15 @@ gamePal
 },
 gamePalEn
 {
-
+	.setItemBonusFn = 0x8004AC54,
+	.difficulty = 0x800E34CC,
+	.getLevelPoolIdFn = 0x80043838,
+	.mapId = 0x8010425C,
+	.mapInformations = 0x800EF118,
+	.setPlayerStatsFn = 0x800A57D0,
+	.setTimingFn = 0x8007BD40,
+	.baseStatsPtr = 0x800E89B0,
+	.cc_begin = 0x80130450
 };
 
 Offset::Offset(Version version)

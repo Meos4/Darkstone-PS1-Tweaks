@@ -469,10 +469,12 @@ void Tweaks::framerate60() const
 		li_a0_4{ Mips::li(Mips::Register::a0, 4) },
 		li_a0_5{ Mips::li(Mips::Register::a0, 5) };
 
+	const auto initInGameMenuLoopShift{ m_game->version() == Version::NtscU ? 0x5FC0 : 0x5FB0 };
+
 	// Inventory, Shop, Pause
-	executable.write(m_game->offset().file.executable.initInGameMenuLoopFn + 0x5FB0, li_a0_5);
+	executable.write(m_game->offset().file.executable.initInGameMenuLoopFn + initInGameMenuLoopShift, li_a0_5);
 	// Mini map
-	executable.write(m_game->offset().file.executable.initInGameMenuLoopFn + 0x5FB4, li_a0_5);
+	executable.write(m_game->offset().file.executable.initInGameMenuLoopFn + initInGameMenuLoopShift + 4, li_a0_5);
 	// Quit Game Text Box
 	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x2670, li_a0_5);
 	// Init Menu, Title Screen, Quit Game Text Box

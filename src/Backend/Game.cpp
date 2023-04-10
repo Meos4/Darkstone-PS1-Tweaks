@@ -28,6 +28,15 @@ Game::Game(const std::filesystem::path& isoPath, Version version)
 		luiBeginHeap{ executable.read<Mips_t>(offset().file.executable.startFn + 0x18) },
 		addiuBeginHeap{ executable.read<Mips_t>(offset().file.executable.startFn + 0x1C) };
 
+	if (static_cast<s16>(addiuBeginHeap) < 0 && static_cast<s16>(addiuBeginHeap) + Game::sectorSize >= 0)
+	{
+		--luiBeginHeap;
+	}
+	else if (static_cast<s16>(addiuBeginHeap) >= 0 && static_cast<s16>(static_cast<s16>(addiuBeginHeap) + Game::sectorSize) < 0)
+	{
+		++luiBeginHeap;
+	}
+
 	u32 newBeginHeap{ (static_cast<u16>(luiBeginHeap) << 16) + static_cast<u16>(addiuBeginHeap) + Game::sectorSize };
 	const u32 rest{ newBeginHeap % Game::sectorSize };
 	if (rest)
