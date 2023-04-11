@@ -28,7 +28,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		{ SETTINGS(m_ui.fixesCantSaveIfLevel59) },
 		{ SETTINGS(m_ui.fixesTheftBlock) },
 		{ SETTINGS(m_ui.fixesTheftEmptyJewelry) },
-		{ SETTINGS(m_ui.duckstation60FPS) }
+		{ SETTINGS(m_ui.duckStation60FPS) }
 	};
 
 	m_ui.tweaksUnlockCostumeByDefault->setToolTip("Allows you to choose secondary costumes even if you have never beaten the game.");
@@ -76,7 +76,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		"Theft will always generate empty jewels as they are on a item pool\n"
 		"that doesn't generate bonuses, this fixes will generate bonuses for them."
 	);
-	m_ui.duckstation60FPS->setToolTip
+	m_ui.duckStation60FPS->setToolTip
 	(
 		"Turn the game framerate to 60 FPS.\n\n"
 		"DuckStation requirements: Settings -> Console Settings -> CPU Emulation set \"Enable Clock Speed Control\" to 920%"
@@ -192,7 +192,7 @@ void TweaksWidget::write() const
 		m_tweaks->theftEmptyJewelry();
 	}
 
-	if (m_ui.duckstation60FPS->isChecked())
+	if (m_ui.duckStation60FPS->isChecked())
 	{
 		m_tweaks->framerate60();
 	}

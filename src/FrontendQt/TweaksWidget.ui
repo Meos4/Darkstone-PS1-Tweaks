@@ -229,13 +229,13 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="duckstation">
+        <widget class="QGroupBox" name="duckStation">
          <property name="title">
-          <string>Duckstation</string>
+          <string>DuckStation</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QCheckBox" name="duckstation60FPS">
+           <widget class="QCheckBox" name="duckStation60FPS">
             <property name="text">
              <string>60 FPS</string>
             </property>
