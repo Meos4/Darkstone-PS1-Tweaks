@@ -31,6 +31,57 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		{ SETTINGS(m_ui.duckstation60FPS) }
 	};
 
+	m_ui.tweaksUnlockCostumeByDefault->setToolTip("Allows you to choose secondary costumes even if you have never beaten the game.");
+	m_ui.tweaksExpandHeroAndLegendShops->setToolTip
+	(
+		"For some reasons the Hero and Legend shops use the Novice shop, this will\n"
+		"expand them according to the growth of the Master shop but with better bonuses."
+	);
+	m_ui.tweaks60To50LegendDifficultyLevelRequirement->setToolTip
+	("Lower the Legend's difficulty requirements to 50 to make it more accessible.");
+	m_ui.tweaksPermanentShopsItems->setToolTip
+	(
+		"Some items like spell books, jewels or elixirs can only be purchased once from the shop and require\n"
+		"closing and then reopening the shop to bring them back, using this feature will make all items permanent."
+	);
+	m_ui.tweaksSpellDurability3Stacks->setToolTip
+	(
+		"Can stack 3 times the durability of spell buffs.\n\n"
+		"Ex: A level 1 Berserker that has 33 seconds can be cast 3 times to get 99 seconds."
+	);
+	m_ui.tweaksTalkToNPCsWhileInvisible->setToolTip("Allows you to talk to NPCs when Invisibility is active.");
+	m_ui.tweaksHideLevelUpXPIfStatsAreAtMaximum->setToolTip
+	(
+		"Due to elixirs you can reach the limit of your stats, they will prevent you from distributing your\n"
+		"points but the level up \"XP!\" will always be displayed in the hud which can be annoying, this feature hides it."
+	);
+	m_ui.fixesExpBarGlitch->setToolTip
+	(
+		"From level 50 due to a type overflow the exp bar is not displayed correctly, this fixes it."
+	);
+	m_ui.fixesCantSaveIfLevel59->setToolTip
+	(
+		"When the game saves your character it checks how much exp you have, if you have\n"
+		"less it doesn't save. The problem is that the amount of exp is the same from level 59.\n\n"
+		"Ex: If your character is level 59 with 50% and you save level 60 with 0% it will deny it.\n\n"
+		"The fixes will also check the level to solves it."
+	);
+	m_ui.fixesTheftBlock->setToolTip
+	(
+		"Due to an oversight, a Theft variable is not reset when entering a new\n"
+		"map and may block the spell until you open a menu, using this fixes it."
+	);
+	m_ui.fixesTheftEmptyJewelry->setToolTip
+	(
+		"Theft will always generate empty jewels as they are on a item pool\n"
+		"that doesn't generate bonuses, this fixes will generate bonuses for them."
+	);
+	m_ui.duckstation60FPS->setToolTip
+	(
+		"Turn the game framerate to 60 FPS.\n\n"
+		"DuckStation requirements: Settings -> Console Settings -> CPU Emulation set \"Enable Clock Speed Control\" to 920%"
+	);
+
 	m_ui.tweaksHudColorCombo->setStyleSheet("font-weight: normal;");
 	m_ui.tweaksHudColorR->setStyleSheet("font-weight: normal;");
 	m_ui.tweaksHudColorG->setStyleSheet("font-weight: normal;");
