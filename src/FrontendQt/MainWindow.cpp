@@ -279,6 +279,13 @@ void MainWindow::onFileSaveAs()
 	saveGameDialog.exec();
 
 	future.wait();
+
+	// For some reasons mkpsxiso creates a file named mkpsxiso.cue
+	if (std::filesystem::exists("mkpsxiso.cue"))
+	{
+		std::filesystem::remove("mkpsxiso.cue");
+	}
+
 	if (!future.get())
 	{
 		disableUI();
