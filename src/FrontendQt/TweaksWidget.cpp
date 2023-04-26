@@ -79,7 +79,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 	m_ui.duckStation60FPS->setToolTip
 	(
 		"Turn the game framerate to 60 FPS.\n\n"
-		"DuckStation requirements: Settings -> Console Settings -> CPU Emulation set \"Enable Clock Speed Control\" to 920%"
+		"DuckStation requirements: Settings -> Console Settings -> CPU Emulation set \"Enable Clock Speed Control\" to 920% for NTSC-U and 750% for PAL"
 	);
 
 	m_ui.tweaksHudColorCombo->setStyleSheet("font-weight: normal;");
