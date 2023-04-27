@@ -60,11 +60,6 @@ void MainWindow::enableUI(std::filesystem::path* isoPath)
 		{
 			emit extractGameDialog.onStateChanged("Extracting game, please wait");
 
-			if (isoPath->extension() == ".cue")
-			{
-				isoPath->replace_extension(".bin");
-			}
-
 			if (!std::filesystem::is_regular_file(*isoPath))
 			{
 				if (std::filesystem::is_directory(*isoPath))
