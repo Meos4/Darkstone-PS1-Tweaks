@@ -28,9 +28,7 @@ set(SOURCES_COMMON
     ${COMMON_DIR}/RawFile.hpp
     ${COMMON_DIR}/Software.hpp
     ${COMMON_DIR}/TemplateTypes.hpp
-    ${COMMON_DIR}/Types.hpp
-    ${COMMON_DIR}/Utility.cpp
-    ${COMMON_DIR}/Utility.hpp)
+    ${COMMON_DIR}/Types.hpp)
 
 set(SOURCES_BACKEND
     ${BACKEND_DIR}/CustomCode.hpp
