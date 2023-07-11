@@ -49,8 +49,10 @@ public:
 	std::filesystem::path isoFilename() const;
 	Version version() const;
 	const Offset& offset() const;
+	bool isVanilla() const;
 
 	void setIsoPath(const std::filesystem::path& isoPath);
+	void setNotVanilla();
 
 	CustomCodeOffset setTheftJewelryBonusOffset() const;
 	CustomCodeOffset setHeroAndLegendBonusShopOffset() const;
@@ -67,6 +69,7 @@ private:
 		const char* serial;
 	};
 
+	bool m_isVanilla;
 	std::filesystem::path m_isoPath;
 	Version m_version;
 	Offset m_offset;

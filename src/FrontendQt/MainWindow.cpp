@@ -226,12 +226,20 @@ void MainWindow::onFileSaveAs()
 	{
 		return;
 	}
-	//else if (const auto isoPath{ m_game->isoPath() };
-	//	QtUtility::qStrToPlatformStr(filePathQStr) == isoPath && std::filesystem::is_regular_file(isoPath))
-	//{
-	//	QMessageBox::critical(this, "Error", "You can't save on your vanilla iso.");
-	//	return;
-	//}
+	else if (const auto isoPath{ m_game->isoPath() };
+		 m_game->isVanilla() && QtUtility::qStrToPlatformStr(filePathQStr) == isoPath && std::filesystem::is_regular_file(isoPath))
+	{
+		static constexpr auto message
+		{ 
+			"Are you sure to save on your vanilla iso? it is highly "
+			"recommended to make a copy before because tweaks can't be undone." 
+		};
+
+		if (QMessageBox::question(this, "Confirm", message, QMessageBox::Yes | QMessageBox::No) == QMessageBox::No)
+		{
+			return;
+		}
+	}
 
 	SaveGameDialog saveGameDialog(this);
 
@@ -289,6 +297,7 @@ void MainWindow::onFileSaveAs()
 	{
 		const std::filesystem::path filePath{ QtUtility::qStrToPlatformStr(filePathQStr) };
 		m_game->setIsoPath(filePath);
+		m_game->setNotVanilla();
 		
 		const QString filename
 		{

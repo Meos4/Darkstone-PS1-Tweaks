@@ -63,6 +63,12 @@ Game::Game(const std::filesystem::path& isoPath, Version version)
 
 		executable.write(offset().file.executable.startFn + 0x54, luiBeginHeap + 0x10000);
 		executable.write(offset().file.executable.startFn + 0x58, addiuBeginHeap + 0x210000);
+
+		m_isVanilla = true;
+	}
+	else
+	{
+		m_isVanilla = false;
 	}
 }
 
@@ -139,9 +145,19 @@ const Offset& Game::offset() const
 	return m_offset;
 }
 
+bool Game::isVanilla() const
+{
+	return m_isVanilla;
+}
+
 void Game::setIsoPath(const std::filesystem::path& isoPath)
 {
 	m_isoPath = isoPath;
+}
+
+void Game::setNotVanilla()
+{
+	m_isVanilla = false;
 }
 
 Game::CustomCodeOffset Game::setTheftJewelryBonusOffset() const
