@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget* parent)
 	disableUI();
 }
 
-void MainWindow::enableUI(std::filesystem::path* isoPath)
+void MainWindow::enableUI(const std::filesystem::path& isoPath)
 {
 	ExtractGameDialog extractGameDialog(this);
 
@@ -60,34 +60,34 @@ void MainWindow::enableUI(std::filesystem::path* isoPath)
 		{
 			emit extractGameDialog.onStateChanged("Extracting game, please wait");
 
-			if (!std::filesystem::is_regular_file(*isoPath))
+			if (!std::filesystem::is_regular_file(isoPath))
 			{
-				if (std::filesystem::is_directory(*isoPath))
+				if (std::filesystem::is_directory(isoPath))
 				{
 					#ifdef _WIN32 
-						throw QString{ QString::fromStdWString(std::format(L"\"{}\" is a directory", isoPath->filename().wstring())) };
+						throw QString{ QString::fromStdWString(std::format(L"\"{}\" is a directory", isoPath.filename().wstring())) };
 					#else
-						throw DstException{ "\"{}\" is a directory", isoPath->filename().string() };
+						throw DstException{ "\"{}\" is a directory", isoPath.filename().string() };
 					#endif
 				}
 				else
 				{
 					#ifdef _WIN32 
-						throw QString{ QString::fromStdWString(std::format(L"\"{}\" file does not exist", isoPath->filename().wstring())) };
+						throw QString{ QString::fromStdWString(std::format(L"\"{}\" file does not exist", isoPath.filename().wstring())) };
 					#else
-						throw DstException{ "\"{}\" file does not exist", isoPath->filename().string() };
+						throw DstException{ "\"{}\" file does not exist", isoPath.filename().string() };
 					#endif
 				}
 			}
 
-			const auto version{ Game::isAValidIso(*isoPath) };
+			const auto version{ Game::isAValidIso(isoPath) };
 
 			if (!version.has_value())
 			{
 				#ifdef _WIN32 
-					throw QString{ QString::fromStdWString(std::format(L"\"{}\" is not a Darkstone binary file", isoPath->filename().wstring())) };
+					throw QString{ QString::fromStdWString(std::format(L"\"{}\" is not a Darkstone binary file", isoPath.filename().wstring())) };
 				#else
-					throw DstException{ "\"{}\" is not a Darkstone binary file", isoPath->filename().string() };
+					throw DstException{ "\"{}\" is not a Darkstone binary file", isoPath.filename().string() };
 				#endif
 			}
 
@@ -107,11 +107,11 @@ void MainWindow::enableUI(std::filesystem::path* isoPath)
 				configPath{ std::format("{}/{}", Path::dstTempDirectory, Path::configXmlFilename) },
 				filesPath{ std::format("{}/{}", Path::dstTempDirectory, Path::filesDirectory) };
 
-			const auto dumpArgs{ Path::dumpIsoArgs(isoPath, &configPath, &filesPath) };
+			const auto dumpArgs{ Path::dumpIsoArgs(&isoPath, &configPath, &filesPath) };
 
 			dumpsxiso(static_cast<int>(dumpArgs.size()), (Path::CStringPlatformPtr)dumpArgs.data());
 
-			m_game = std::make_shared<Game>(*isoPath, version.value());
+			m_game = std::make_shared<Game>(isoPath, version.value());
 
 			emit extractGameDialog.shouldClose();
 
@@ -215,7 +215,7 @@ void MainWindow::onFileOpen()
 	if (!filePathQStr.isEmpty())
 	{
 		std::filesystem::path filePath{ QtUtility::qStrToPlatformStr(filePathQStr) };
-		enableUI(&filePath);
+		enableUI(filePath);
 	}
 }
 
@@ -345,7 +345,7 @@ void MainWindow::dropEvent(QDropEvent* event)
 		}
 		else
 		{
-			enableUI(&path);
+			enableUI(path);
 		}
 	}
 }

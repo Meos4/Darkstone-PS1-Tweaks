@@ -20,7 +20,7 @@ class MainWindow final : public QMainWindow
 public:
 	MainWindow(QWidget* parent = nullptr);
 
-	void enableUI(std::filesystem::path* isoPath);
+	void enableUI(const std::filesystem::path& isoPath);
 	void disableUI();
 public Q_SLOTS:
 	void loadSettings();
