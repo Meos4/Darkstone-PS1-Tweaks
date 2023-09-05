@@ -11,11 +11,17 @@
 #include <format>
 #include <type_traits>
 
-const std::unordered_map<Version, Game::VersionSerialText> Game::s_versionSerial
+struct VersionSerialText
 {
-	{ Version::NtscU,	{ "NTSC-U", "SLUS-01182" } },
-	{ Version::Pal,		{ "PAL", "SLES-00612" } },
-	{ Version::PalEn,	{ "PAL-EN", "SLES-03447" } }
+	const char* version;
+	const char* serial;
+};
+
+static constexpr std::array<VersionSerialText, static_cast<std::size_t>(Version::Count)> versionSerial
+{
+	"NTSC-U", "SLUS-01182",
+	"PAL", "SLES-00612",
+	"PAL-EN", "SLES-03447"
 };
 
 Game::Game(const std::filesystem::path& isoPath, Version version)
@@ -117,12 +123,12 @@ RawFile Game::launcherExecutable() const
 
 const char* Game::versionText() const
 {
-	return s_versionSerial.at(m_version).version;
+	return versionSerial[static_cast<std::size_t>(m_version)].version;
 }
 
 const char* Game::serialText() const
 {
-	return s_versionSerial.at(m_version).serial;
+	return versionSerial[static_cast<std::size_t>(m_version)].serial;
 }
 
 std::filesystem::path Game::isoPath() const

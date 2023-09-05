@@ -9,7 +9,6 @@
 #include <filesystem>
 #include <memory>
 #include <optional>
-#include <unordered_map>
 
 class Game final
 {
@@ -63,15 +62,8 @@ public:
 
 	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:
-	struct VersionSerialText
-	{
-		const char* version;
-		const char* serial;
-	};
-
 	bool m_isVanilla;
 	std::filesystem::path m_isoPath;
 	Version m_version;
 	Offset m_offset;
-	static const std::unordered_map<Version, VersionSerialText> s_versionSerial;
 };
