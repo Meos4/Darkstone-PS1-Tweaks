@@ -316,7 +316,7 @@ void Tweaks::hudColor(const Tweaks::HudColorArray& hud) const
 
 void Tweaks::expBarGlitch() const
 {
-	static constexpr CustomCode::DivideXpBarSizeBy10 divideXpBarSizeBy10Fn
+	static constexpr CustomCode::DivideXpBarSizeBy16 divideXpBarSizeBy16Fn
 	{
 		0x00073902, // srl a3, 4
 		0x000A5102, // srl t2, 4
@@ -328,11 +328,11 @@ void Tweaks::expBarGlitch() const
 
 	auto executable{ m_game->executable() };
 
-	const auto divideXpBarSizeBy10Offset{ m_game->divideXpBarSizeBy10Offset() };
+	const auto divideXpBarSizeBy16Offset{ m_game->divideXpBarSizeBy16Offset() };
 
-	executable.write(divideXpBarSizeBy10Offset.file, divideXpBarSizeBy10Fn);
+	executable.write(divideXpBarSizeBy16Offset.file, divideXpBarSizeBy16Fn);
 	executable.write(m_game->offset().file.executable.drawHudFn + 0x794,
-		std::array<Mips_t, 2>{ Mips::jal(divideXpBarSizeBy10Offset.game), 0x00042102 }); // srl a0, 4
+		std::array<Mips_t, 2>{ Mips::jal(divideXpBarSizeBy16Offset.game), 0x00042102 }); // srl a0, 4
 }
 
 void Tweaks::cantSaveIfLevel59() const

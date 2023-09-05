@@ -33,7 +33,7 @@ namespace CustomCode
 		static constexpr u32 functionOffset(u32 begin) { return timingOffset(begin) + sizeof(timing); };
 	};
 
-	using DivideXpBarSizeBy10 = std::array<Mips_t, 6>;
+	using DivideXpBarSizeBy16 = std::array<Mips_t, 6>;
 
 	using CheckCharacterLevelToSave = std::array<Mips_t, 10>;
 

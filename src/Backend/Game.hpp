@@ -57,7 +57,7 @@ public:
 	CustomCodeOffset setTheftJewelryBonusOffset() const;
 	CustomCodeOffset setHeroAndLegendBonusShopOffset() const;
 	CustomCodeOffset setSpellDurability3StacksOffset() const;
-	CustomCodeOffset divideXpBarSizeBy10Offset() const;
+	CustomCodeOffset divideXpBarSizeBy16Offset() const;
 	CustomCodeOffset checkCharacterLevelToSaveOffset() const;
 	CustomCodeOffset return0StatsIfMaximumOffset() const;
 

@@ -181,14 +181,14 @@ Game::CustomCodeOffset Game::setSpellDurability3StacksOffset() const
 	return setHeroAndLegendBonusShopOffset() += sizeof(CustomCode::SetHeroAndLegendBonusShop);
 }
 
-Game::CustomCodeOffset Game::divideXpBarSizeBy10Offset() const
+Game::CustomCodeOffset Game::divideXpBarSizeBy16Offset() const
 {
 	return setSpellDurability3StacksOffset() += sizeof(CustomCode::SetSpellDurability3Stacks);
 }
 
 Game::CustomCodeOffset Game::checkCharacterLevelToSaveOffset() const
 {
-	return divideXpBarSizeBy10Offset() += sizeof(CustomCode::DivideXpBarSizeBy10);
+	return divideXpBarSizeBy16Offset() += sizeof(CustomCode::DivideXpBarSizeBy16);
 }
 
 Game::CustomCodeOffset Game::return0StatsIfMaximumOffset() const
