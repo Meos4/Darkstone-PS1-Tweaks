@@ -233,6 +233,14 @@ void MainWindow::disableUI()
 	}
 }
 
+void MainWindow::saveSettings()
+{
+	nlohmann::ordered_json json;
+	std::ofstream jsonFile(GuiPath::dstGuiSettingsFilename);
+	m_guiSettings.saveSettings(&json);
+	jsonFile << std::setw(4) << json;
+}
+
 void MainWindow::loadPresets()
 {
 	const auto presetsPathQStr{ QFileDialog::getOpenFileName(this, "Open Darkstone PS1 Tweaks Presets File", QString{}, "*.json", nullptr) };

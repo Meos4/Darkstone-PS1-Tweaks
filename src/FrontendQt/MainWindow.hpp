@@ -26,6 +26,7 @@ public:
 
 	void enableUI(const std::filesystem::path& isoPath);
 	void disableUI();
+	void saveSettings();
 public Q_SLOTS:
 	void loadPresets();
 	void savePresets();

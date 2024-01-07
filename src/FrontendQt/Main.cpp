@@ -8,5 +8,6 @@ int main(int argc, char** argv)
 	MainWindow window;
 	window.show();
 	const auto exec{ app.exec() };
+	window.saveSettings();
 	return exec;
 }
