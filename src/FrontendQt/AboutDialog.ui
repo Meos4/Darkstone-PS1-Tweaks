@@ -62,8 +62,5 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="Resource/resources.qrc"/>
- </resources>
  <connections/>
 </ui>
