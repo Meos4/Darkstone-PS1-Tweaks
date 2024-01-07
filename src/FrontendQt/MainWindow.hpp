@@ -3,14 +3,18 @@
 #include "ui_MainWindow.h"
 
 #include "Backend/Game.hpp"
+#include "FrontendQt/GuiSettings.hpp"
 
 #include <QMainWindow>
 
+#include <array>
 #include <filesystem>
 #include <memory>
 
 class TopInfoWidget;
 class TweaksWidget;
+class QAction;
+class QActionGroup;
 class QDragEnterEvent;
 class QDropEvent;
 
@@ -27,6 +31,7 @@ public Q_SLOTS:
 	void saveSettings();
 	void onFileOpen();
 	void onFileSaveAs();
+	void onThemeChanged();
 	void onHelpAbout();
 private:
 	void dragEnterEvent(QDragEnterEvent* event) override;
@@ -36,6 +41,9 @@ private:
 
 	TopInfoWidget* m_topInfoWidget;
 	TweaksWidget* m_tweaksWidget;
+	QActionGroup* m_themeActionsGroup;
+	std::array<QAction*, static_cast<std::size_t>(Theme::Count)> m_themeActions;
 
 	std::shared_ptr<Game> m_game;
+	GuiSettings m_guiSettings;
 };

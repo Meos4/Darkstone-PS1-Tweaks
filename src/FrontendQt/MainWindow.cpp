@@ -4,6 +4,7 @@
 #include "Common/DstException.hpp"
 #include "FrontendQt/AboutDialog.hpp"
 #include "FrontendQt/ExtractGameDialog.hpp"
+#include "FrontendQt/GuiPath.hpp"
 #include "FrontendQt/SaveGameDialog.hpp"
 #include "FrontendQt/TopInfoWidget.hpp"
 #include "FrontendQt/TweaksWidget.hpp"
@@ -11,6 +12,7 @@
 #include "dumpsxiso/dumpsxiso.h"
 #include "mkpsxiso/mkpsxiso.h"
 
+#include <QActionGroup>
 #include <QDesktopServices>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -32,12 +34,25 @@ MainWindow::MainWindow(QWidget* parent)
 	m_tweaksWidget = new TweaksWidget(this);
 	m_ui.mainLayout->addWidget(m_tweaksWidget);
 
+	m_themeActionsGroup = new QActionGroup(this);
+	m_themeActionsGroup->addAction(m_ui.actionSettingsThemeDark);
+	m_themeActionsGroup->addAction(m_ui.actionSettingsThemeLight);
+
+	m_themeActions = 
+	{
+		m_ui.actionSettingsThemeDark,
+		m_ui.actionSettingsThemeLight
+	};
+
 	connect(m_topInfoWidget, &TopInfoWidget::buttonLoadSettingsClicked, this, &MainWindow::loadSettings);
 	connect(m_topInfoWidget, &TopInfoWidget::buttonSaveSettingsClicked, this, &MainWindow::saveSettings);
 	connect(m_ui.actionFileOpen, &QAction::triggered, this, &MainWindow::onFileOpen);
 	connect(m_ui.actionFileClose, &QAction::triggered, this, &MainWindow::disableUI);
 	connect(m_ui.actionFileSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
 	connect(m_ui.actionFileExit, &QAction::triggered, this, &QWidget::close);
+
+	connect(m_ui.actionSettingsThemeDark, &QAction::toggled, this, &MainWindow::onThemeChanged);
+	connect(m_ui.actionSettingsThemeLight, &QAction::toggled, this, &MainWindow::onThemeChanged);
 
 	connect(m_ui.actionHelpGitHub, &QAction::triggered, this,
 		[]() { QDesktopServices::openUrl(QUrl{ "https://github.com/Meos4/Darkstone-PS1-Tweaks" }); });
@@ -48,6 +63,35 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(m_ui.actionHelpAbout, &QAction::triggered, this, &MainWindow::onHelpAbout);
 
 	disableUI();
+
+	m_guiSettings.setOsTheme();
+
+	std::filesystem::path guiSettingsPath{ GuiPath::dstGuiSettingsFilename };
+	if (std::filesystem::is_regular_file(guiSettingsPath))
+	{
+		try
+		{
+			std::ifstream jsonFile(guiSettingsPath);
+			nlohmann::json json;
+			jsonFile >> json;
+			m_guiSettings.loadSettings(json);
+		}
+		catch (nlohmann::json::exception& e)
+		{
+			QString errorMessage
+			{
+				#ifdef _WIN32
+					QString::fromStdWString(std::format(L"\"{}\" is not a valid json file, ", guiSettingsPath.wstring()))
+				#else
+					QString::fromStdString(std::format("\"{}\" is not a valid json file, ", guiSettingsPath.string()))
+				#endif
+			};
+			errorMessage += QString::fromStdString(std::format("Reason:\n{}", e.what()));
+			QMessageBox::critical(this, "Error", errorMessage);
+		}
+	}
+
+	m_themeActions[static_cast<std::size_t>(m_guiSettings.theme())]->setChecked(true);
 }
 
 void MainWindow::enableUI(const std::filesystem::path& isoPath)
@@ -309,6 +353,18 @@ void MainWindow::onFileSaveAs()
 		};
 
 		m_topInfoWidget->setFilename(filename);
+	}
+}
+
+void MainWindow::onThemeChanged()
+{
+	for (std::size_t i{}; i < m_themeActions.size(); ++i)
+	{
+		if (m_themeActions[i]->isChecked())
+		{
+			m_guiSettings.updateTheme(static_cast<Theme>(i));
+			break;
+		}
 	}
 }
 

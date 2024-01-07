@@ -53,6 +53,9 @@ set(SOURCES_FRONTENDQT
     ${FRONTENDQT_DIR}/ExtractGameDialog.cpp
     ${FRONTENDQT_DIR}/ExtractGameDialog.hpp
     ${FRONTENDQT_DIR}/ExtractGameDialog.ui
+    ${FRONTENDQT_DIR}/GuiPath.hpp
+    ${FRONTENDQT_DIR}/GuiSettings.cpp
+    ${FRONTENDQT_DIR}/GuiSettings.hpp
     ${FRONTENDQT_DIR}/Main.cpp
     ${FRONTENDQT_DIR}/MainWindow.cpp
     ${FRONTENDQT_DIR}/MainWindow.hpp
@@ -72,11 +75,11 @@ set(SOURCES_FRONTENDQT
     ${FRONTENDQT_DIR}/TweaksWidgetSettings.hpp)
 
 set(SOURCES_RESOURCEQT
-    ${PROJECT_SOURCE_DIR}/src/FrontendQt/Resource/resources.qrc)
+    ${PROJECT_SOURCE_DIR}/src/FrontendQt/resources/resources.qrc)
 
 if (WIN32)
     enable_language("RC")
-    set(WIN32_RESOURCE ${FRONTENDQT_DIR}/Resource/DarkstonePS1Tweaks.rc)
+    set(WIN32_RESOURCE ${FRONTENDQT_DIR}/resources/DarkstonePS1Tweaks.rc)
     add_executable(darkstone_ps1_tweaks WIN32 ${WIN32_RESOURCE})
 else()
     add_executable(darkstone_ps1_tweaks)
@@ -91,7 +94,7 @@ target_sources(darkstone_ps1_tweaks PRIVATE
 source_group(Common FILES ${SOURCES_COMMON})
 source_group(Backend FILES ${SOURCES_BACKEND})
 source_group(FrontendQt FILES ${SOURCES_FRONTENDQT})
-source_group(FrontendQt/Resource FILES ${SOURCES_RESOURCEQT})
+source_group(FrontendQt/resources FILES ${SOURCES_RESOURCEQT})
 
 target_include_directories(darkstone_ps1_tweaks PRIVATE 
     ${PROJECT_SOURCE_DIR}/src

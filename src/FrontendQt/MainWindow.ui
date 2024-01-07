@@ -65,7 +65,21 @@
     <addaction name="separator"/>
     <addaction name="actionHelpAbout"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <widget class="QMenu" name="menuTheme">
+     <property name="title">
+      <string>Theme</string>
+     </property>
+     <addaction name="actionSettingsThemeDark"/>
+     <addaction name="actionSettingsThemeLight"/>
+    </widget>
+    <addaction name="menuTheme"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -75,8 +89,7 @@
   </widget>
   <action name="actionFileOpen">
    <property name="icon">
-    <iconset resource="Resource/resources.qrc">
-     <normaloff>:/Img/Open.png</normaloff>:/Img/Open.png</iconset>
+    <iconset theme="Open"/>
    </property>
    <property name="text">
     <string>Open</string>
@@ -87,8 +100,7 @@
   </action>
   <action name="actionFileClose">
    <property name="icon">
-    <iconset resource="Resource/resources.qrc">
-     <normaloff>:/Img/Close.png</normaloff>:/Img/Close.png</iconset>
+    <iconset theme="Close"/>
    </property>
    <property name="text">
     <string>Close</string>
@@ -99,8 +111,7 @@
   </action>
   <action name="actionFileSaveAs">
    <property name="icon">
-    <iconset resource="Resource/resources.qrc">
-     <normaloff>:/Img/SaveAs.png</normaloff>:/Img/SaveAs.png</iconset>
+    <iconset theme="SaveAs"/>
    </property>
    <property name="text">
     <string>Save As</string>
@@ -111,8 +122,7 @@
   </action>
   <action name="actionFileExit">
    <property name="icon">
-    <iconset resource="Resource/resources.qrc">
-     <normaloff>:/Img/Exit.png</normaloff>:/Img/Exit.png</iconset>
+    <iconset theme="Exit"/>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -123,8 +133,7 @@
   </action>
   <action name="actionHelpGitHub">
    <property name="icon">
-    <iconset resource="Resource/resources.qrc">
-     <normaloff>:/Img/GitHub.png</normaloff>:/Img/GitHub.png</iconset>
+    <iconset theme="GitHub"/>
    </property>
    <property name="text">
     <string>GitHub</string>
@@ -132,8 +141,7 @@
   </action>
   <action name="actionHelpChangelog">
    <property name="icon">
-    <iconset resource="Resource/resources.qrc">
-     <normaloff>:/Img/Changelog.png</normaloff>:/Img/Changelog.png</iconset>
+    <iconset theme="Changelog"/>
    </property>
    <property name="text">
     <string>Changelog</string>
@@ -141,16 +149,32 @@
   </action>
   <action name="actionHelpAbout">
    <property name="icon">
-    <iconset>
-     <normaloff>:/Img/About.png</normaloff>:/Img/About.png</iconset>
+    <iconset resource="resources/resources.qrc">
+     <normaloff>:/icons/SwIcon.png</normaloff>:/icons/SwIcon.png</iconset>
    </property>
    <property name="text">
     <string>About</string>
    </property>
   </action>
+  <action name="actionSettingsThemeDark">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Dark</string>
+   </property>
+  </action>
+  <action name="actionSettingsThemeLight">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Light</string>
+   </property>
+  </action>
  </widget>
  <resources>
-  <include location="Resource/resources.qrc"/>
+  <include location="resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
