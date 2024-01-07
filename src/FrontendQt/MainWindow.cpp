@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget* parent)
 		m_ui.actionSettingsThemeLight
 	};
 
-	connect(m_topInfoWidget, &TopInfoWidget::buttonLoadSettingsClicked, this, &MainWindow::loadSettings);
-	connect(m_topInfoWidget, &TopInfoWidget::buttonSaveSettingsClicked, this, &MainWindow::saveSettings);
+	connect(m_topInfoWidget, &TopInfoWidget::buttonLoadPresetsClicked, this, &MainWindow::loadPresets);
+	connect(m_topInfoWidget, &TopInfoWidget::buttonSavePresetsClicked, this, &MainWindow::savePresets);
 	connect(m_ui.actionFileOpen, &QAction::triggered, this, &MainWindow::onFileOpen);
 	connect(m_ui.actionFileClose, &QAction::triggered, this, &MainWindow::disableUI);
 	connect(m_ui.actionFileSaveAs, &QAction::triggered, this, &MainWindow::onFileSaveAs);
@@ -233,23 +233,23 @@ void MainWindow::disableUI()
 	}
 }
 
-void MainWindow::loadSettings()
+void MainWindow::loadPresets()
 {
-	const auto settingsPathQStr{ QFileDialog::getOpenFileName(this, "Open Darkstone PS1 Tweaks Settings File", QString{}, "*.json", nullptr) };
-	if (!settingsPathQStr.isEmpty())
+	const auto presetsPathQStr{ QFileDialog::getOpenFileName(this, "Open Darkstone PS1 Tweaks Presets File", QString{}, "*.json", nullptr) };
+	if (!presetsPathQStr.isEmpty())
 	{
-		const std::filesystem::path settingsPath{ QtUtility::qStrToPlatformStr(settingsPathQStr) };
-		m_tweaksWidget->loadSettings(settingsPath);
+		const std::filesystem::path presetsPath{ QtUtility::qStrToPlatformStr(presetsPathQStr) };
+		m_tweaksWidget->loadPresets(presetsPath);
 	}	
 }
 
-void MainWindow::saveSettings()
+void MainWindow::savePresets()
 {
-	const auto settingsPathQStr{ QFileDialog::getSaveFileName(this, "Save Darkstone PS1 Tweaks Settings File", QString{}, "*.json", nullptr)};
-	if (!settingsPathQStr.isEmpty())
+	const auto presetsPathQStr{ QFileDialog::getSaveFileName(this, "Save Darkstone PS1 Tweaks Presets File", QString{}, "*.json", nullptr)};
+	if (!presetsPathQStr.isEmpty())
 	{
-		std::filesystem::path settingsPath{ QtUtility::qStrToPlatformStr(settingsPathQStr) };
-		m_tweaksWidget->saveSettings(settingsPath);
+		std::filesystem::path presetsPath{ QtUtility::qStrToPlatformStr(presetsPathQStr) };
+		m_tweaksWidget->savePresets(presetsPath);
 	}
 }
 
@@ -397,7 +397,7 @@ void MainWindow::dropEvent(QDropEvent* event)
 		
 		if (m_game && path.extension() == ".json")
 		{
-			m_tweaksWidget->loadSettings(path);
+			m_tweaksWidget->loadPresets(path);
 		}
 		else
 		{

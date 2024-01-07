@@ -198,7 +198,7 @@ void TweaksWidget::write() const
 	}
 }
 
-void TweaksWidget::loadSettings(const std::filesystem::path& path)
+void TweaksWidget::loadPresets(const std::filesystem::path& path)
 {
 	try
 	{
@@ -234,7 +234,7 @@ void TweaksWidget::loadSettings(const std::filesystem::path& path)
 	}
 }
 
-void TweaksWidget::saveSettings(const std::filesystem::path& path)
+void TweaksWidget::savePresets(const std::filesystem::path& path)
 {
 	nlohmann::ordered_json json;
 

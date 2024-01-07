@@ -12,8 +12,8 @@ TopInfoWidget::TopInfoWidget(QWidget* parent)
 
 	disableUI();
 
-	connect(m_ui.loadSettings, &QAbstractButton::clicked, this, &TopInfoWidget::buttonLoadSettingsClicked);
-	connect(m_ui.saveSettings, &QAbstractButton::clicked, this, &TopInfoWidget::buttonSaveSettingsClicked);
+	connect(m_ui.loadPresets, &QAbstractButton::clicked, this, &TopInfoWidget::buttonLoadPresetsClicked);
+	connect(m_ui.savePresets, &QAbstractButton::clicked, this, &TopInfoWidget::buttonSavePresetsClicked);
 }
 
 void TopInfoWidget::enableUI(const QString& version, const QString& filename)
@@ -21,8 +21,8 @@ void TopInfoWidget::enableUI(const QString& version, const QString& filename)
 	setVersion(version);
 	setFilename(filename);
 
-	m_ui.loadSettings->setEnabled(true);
-	m_ui.saveSettings->setEnabled(true);
+	m_ui.loadPresets->setEnabled(true);
+	m_ui.savePresets->setEnabled(true);
 }
 
 void TopInfoWidget::disableUI()
@@ -30,8 +30,8 @@ void TopInfoWidget::disableUI()
 	setVersion("");
 	setFilename("");
 
-	m_ui.loadSettings->setEnabled(false);
-	m_ui.saveSettings->setEnabled(false);
+	m_ui.loadPresets->setEnabled(false);
+	m_ui.savePresets->setEnabled(false);
 }
 
 void TopInfoWidget::setVersion(const QString& version)

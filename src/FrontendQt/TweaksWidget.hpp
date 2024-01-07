@@ -19,8 +19,8 @@ public:
 	void enableUI(std::shared_ptr<Game> game);
 	void disableUI();
 	void write() const;
-	void loadSettings(const std::filesystem::path& path);
-	void saveSettings(const std::filesystem::path& path);
+	void loadPresets(const std::filesystem::path& path);
+	void savePresets(const std::filesystem::path& path);
 	Tweaks::HudColorArray hudColor() const;
 public Q_SLOTS:
 	void updateHudThemes();

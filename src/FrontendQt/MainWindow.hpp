@@ -27,8 +27,8 @@ public:
 	void enableUI(const std::filesystem::path& isoPath);
 	void disableUI();
 public Q_SLOTS:
-	void loadSettings();
-	void saveSettings();
+	void loadPresets();
+	void savePresets();
 	void onFileOpen();
 	void onFileSaveAs();
 	void onThemeChanged();

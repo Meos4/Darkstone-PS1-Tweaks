@@ -20,8 +20,8 @@ public:
 	void setVersion(const QString& version);
 	void setFilename(const QString& filename);
 Q_SIGNALS:
-	void buttonLoadSettingsClicked();
-	void buttonSaveSettingsClicked();
+	void buttonLoadPresetsClicked();
+	void buttonSavePresetsClicked();
 private:
 	Ui::TopInfoWidget m_ui;
 };
