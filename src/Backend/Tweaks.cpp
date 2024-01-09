@@ -20,16 +20,18 @@ Tweaks::HudColorArray Tweaks::hudColor() const
 void Tweaks::unlockCostumeByDefault() const
 {
 	auto executable{ m_game->executable() };
+	const auto& offsetFE{ m_game->offset().file.executable };
 
-	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x430, Mips_t(0));
-	executable.write(m_game->offset().file.executable.chooseClassLoopFn + 0x558, Mips_t(0));
+	executable.write(offsetFE.chooseClassLoopFn + 0x430, Mips_t(0));
+	executable.write(offsetFE.chooseClassLoopFn + 0x558, Mips_t(0));
 }
 
 void Tweaks::expandHeroAndLegendShops() const
 {
 	auto executable{ m_game->executable() };
+	const auto& offset{ m_game->offset() };
 
-	const auto li32_difficulty{ Mips::li32(Mips::Register::v0, m_game->offset().game.difficulty) };
+	const auto li32_difficulty{ Mips::li32(Mips::Register::v0, offset.game.difficulty) };
 
 	const CustomCode::SetHeroAndLegendBonusShop setHeroAndLegendBonusShopFn
 	{
@@ -64,7 +66,7 @@ void Tweaks::expandHeroAndLegendShops() const
 	const std::array<Mips_t, 2> jal_sll_v1_2{ Mips::jal(setHeroAndLegendBonusShopOffset.game), 0x00031880 }; // sll v1, 2
 
 	executable.write(setHeroAndLegendBonusShopOffset.file, setHeroAndLegendBonusShopFn);
-	executable.write(m_game->offset().file.executable.generateShopFn + 0xC4, jal_sll_v1_2);
+	executable.write(offset.file.executable.generateShopFn + 0xC4, jal_sll_v1_2);
 }
 
 void Tweaks::legendDifficultyRequirement60To50() const
@@ -148,12 +150,12 @@ void Tweaks::spellDurability3Stacks() const
 	}};
 
 	const auto setSpellDurability3StacksOffset{ m_game->setSpellDurability3StacksOffset() };
-
 	const auto j_function{ Mips::j(CustomCode::SetSpellDurability3Stacks::functionOffset(setSpellDurability3StacksOffset.game)) };
+	const auto& offset{ m_game->offset() };
 
 	const auto 
-		li32_setPlayerStats{ Mips::li32(Mips::Register::t0, m_game->offset().game.setPlayerStatsFn) },
-		li32_setTiming{ Mips::li32(Mips::Register::t0, m_game->offset().game.setTimingFn) };
+		li32_setPlayerStats{ Mips::li32(Mips::Register::t0, offset.game.setPlayerStatsFn) },
+		li32_setTiming{ Mips::li32(Mips::Register::t0, offset.game.setTimingFn) };
 
 	const CustomCode::SetSpellDurability3Stacks setSpellDurability3StacksFn
 	{
@@ -221,7 +223,7 @@ void Tweaks::spellDurability3Stacks() const
 			}
 		};
 
-		executable.write(m_game->offset().file.executable.setPrayerFn + info.locShift, 
+		executable.write(offset.file.executable.setPrayerFn + info.locShift, 
 			std::array<Mips_t, 2>{ Mips::jal(buffOffset()), Mips::li(Mips::Register::t1, info.structShift) });
 	}
 }
@@ -229,16 +231,18 @@ void Tweaks::spellDurability3Stacks() const
 void Tweaks::talkToNPCsWhileInvisible() const
 {
 	auto executable{ m_game->executable() };
+	const auto igbOffset{ m_game->offset().file.executable.inGameBehaviorFn };
 
 	// Shop
-	executable.write(m_game->offset().file.executable.inGameBehaviorFn + 0x4258, Mips_t(0));
+	executable.write(igbOffset + 0x4258, Mips_t(0));
 	// NPC
-	executable.write(m_game->offset().file.executable.inGameBehaviorFn + 0x42E4, Mips_t(0));
+	executable.write(igbOffset + 0x42E4, Mips_t(0));
 }
 
 void Tweaks::hideLevelUpXPIfStatsAreAtMaximum() const
 {
-	const auto li32_baseStatsPtr{ Mips::li32(Mips::Register::a1, m_game->offset().game.baseStatsPtr) };
+	const auto& offset{ m_game->offset() };
+	const auto li32_baseStatsPtr{ Mips::li32(Mips::Register::a1, offset.game.baseStatsPtr) };
 
 	const CustomCode::Return0StatsIfMaximum return0StatsIfMaximumFn
 	{
@@ -301,11 +305,12 @@ void Tweaks::hideLevelUpXPIfStatsAreAtMaximum() const
 	executable.write(return0StatsIfMaximumOffset.file, return0StatsIfMaximumFn);
 
 	const auto jal_return0StatsIfMaximumOffset{ Mips::jal(return0StatsIfMaximumOffset.game) };
+	const auto& offsetFE{ offset.file.executable };
 
-	executable.write(m_game->offset().file.executable.drawHudFn + 0x1400,
+	executable.write(offsetFE.drawHudFn + 0x1400,
 		std::array<Mips_t, 2>{ jal_return0StatsIfMaximumOffset, Mips_t(0x03201021) } ); // move v0, t9
 
-	executable.write(m_game->offset().file.executable.inventoryLoopFn + 0x19C4,
+	executable.write(offsetFE.inventoryLoopFn + 0x19C4,
 		std::array<Mips_t, 2>{ jal_return0StatsIfMaximumOffset, Mips_t(0x01801021) } ); // move v0, t4
 }
 
@@ -370,13 +375,15 @@ void Tweaks::theftBlock() const
 void Tweaks::theftEmptyJewelry() const
 {
 	auto executable{ m_game->executable() };
+	const auto& offset{ m_game->offset() };
+	const auto& offsetG{ offset.game };
 
 	const auto generateJewelryBonusOffset{ m_game->setTheftJewelryBonusOffset() };
 
 	const auto 
-		li32_mapId{ Mips::li32(Mips::Register::a1, m_game->offset().game.mapId) },
-		li32_mapInformations{ Mips::li32(Mips::Register::a1, m_game->offset().game.mapInformations) },
-		li32_difficulty{ Mips::li32(Mips::Register::a2, m_game->offset().game.difficulty) },
+		li32_mapId{ Mips::li32(Mips::Register::a1, offsetG.mapId) },
+		li32_mapInformations{ Mips::li32(Mips::Register::a1, offsetG.mapInformations) },
+		li32_difficulty{ Mips::li32(Mips::Register::a2, offsetG.difficulty) },
 		li32_xamuletStr{ Mips::li32(Mips::Register::a0, CustomCode::GenerateJewelryBonus::xamuletStrOffset(generateJewelryBonusOffset.game)) },
 		li32_xringStr{ Mips::li32(Mips::Register::a0, CustomCode::GenerateJewelryBonus::xringStrOffset(generateJewelryBonusOffset.game)) };
 
@@ -430,7 +437,7 @@ void Tweaks::theftEmptyJewelry() const
 			// Generate bonus
 			li32_mapId[0],
 			li32_mapId[1],
-			Mips::jal(m_game->offset().game.getLevelPoolIdFn),
+			Mips::jal(offsetG.getLevelPoolIdFn),
 			0x8CA50000, // lw a1, 0(a1)
 			li32_mapInformations[0],
 			li32_mapInformations[1],
@@ -441,7 +448,7 @@ void Tweaks::theftEmptyJewelry() const
 			0x24070001, // li a3, 1
 			0x24C6FFFF, // addiu a2, -1
 			0x00063140, // sll a2, 5
-			Mips::jal(m_game->offset().game.setItemBonusFn),
+			Mips::jal(offsetG.setItemBonusFn),
 			0x00463021, // addu a2, v0, a2
 
 			0x8FBF0018, // lw ra, 0x18(sp)
@@ -457,13 +464,15 @@ void Tweaks::theftEmptyJewelry() const
 	};
 
 	executable.write(generateJewelryBonusOffset.file, generateJewelryBonusFn);
-	executable.write(m_game->offset().file.executable.generateTheftItemFn + 0x394,
+	executable.write(offset.file.executable.generateTheftItemFn + 0x394,
 		Mips::jal(CustomCode::GenerateJewelryBonus::functionOffset(generateJewelryBonusOffset.game)));
 }
 
 void Tweaks::framerate60() const
 {
 	auto executable{ m_game->executable() };
+	const auto& offset{ m_game->offset() };
+	const auto& offsetFE{ offset.file.executable };
 
 	static constexpr auto
 		li_a0_4{ Mips::li(Mips::Register::a0, 4) },
@@ -472,15 +481,15 @@ void Tweaks::framerate60() const
 	const auto initInGameMenuLoopShift{ m_game->version() == Version::NtscU ? 0x5FC0 : 0x5FB0 };
 
 	// Inventory, Shop, Pause
-	executable.write(m_game->offset().file.executable.initInGameMenuLoopFn + initInGameMenuLoopShift, li_a0_5);
+	executable.write(offsetFE.initInGameMenuLoopFn + initInGameMenuLoopShift, li_a0_5);
 	// Mini map
-	executable.write(m_game->offset().file.executable.initInGameMenuLoopFn + initInGameMenuLoopShift + 4, li_a0_5);
+	executable.write(offsetFE.initInGameMenuLoopFn + initInGameMenuLoopShift + 4, li_a0_5);
 	// Quit Game Text Box
-	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x2670, li_a0_5);
+	executable.write(offsetFE.inGameMenuLoopFn + 0x2670, li_a0_5);
 	// Init Menu, Title Screen, Quit Game Text Box
-	executable.write(m_game->offset().file.executable.drawOnScreenFn + 0x68, li_a0_5);
+	executable.write(offsetFE.drawOnScreenFn + 0x68, li_a0_5);
 	// In Game
-	executable.write(m_game->offset().file.executable.drawOnScreenFn + 0x5C, li_a0_4);
+	executable.write(offsetFE.drawOnScreenFn + 0x5C, li_a0_4);
 
 	// D-Pad
 	static constexpr s16 dpadCameraSpeed{ 80 / 3 };
@@ -489,37 +498,37 @@ void Tweaks::framerate60() const
 		li_v1_dpadCameraSpeedPlus{ Mips::li(Mips::Register::v1, dpadCameraSpeed) },
 		li_v1_dpadCameraSpeedMinus{ Mips::li(Mips::Register::v1, -dpadCameraSpeed) };
 
-	executable.write(m_game->offset().file.executable.cameraSpeedRotateXPlusFn + 0x14C, li_v1_dpadCameraSpeedPlus);
-	executable.write(m_game->offset().file.executable.cameraSpeedRotateXMinusFn + 0x14C, li_v1_dpadCameraSpeedMinus);
-	executable.write(m_game->offset().file.executable.cameraSpeedRotateYPlusFn + 0x154, li_v1_dpadCameraSpeedPlus);
-	executable.write(m_game->offset().file.executable.cameraSpeedRotateYMinusFn + 0x170, li_v1_dpadCameraSpeedMinus);
+	executable.write(offsetFE.cameraSpeedRotateXPlusFn + 0x14C, li_v1_dpadCameraSpeedPlus);
+	executable.write(offsetFE.cameraSpeedRotateXMinusFn + 0x14C, li_v1_dpadCameraSpeedMinus);
+	executable.write(offsetFE.cameraSpeedRotateYPlusFn + 0x154, li_v1_dpadCameraSpeedPlus);
+	executable.write(offsetFE.cameraSpeedRotateYMinusFn + 0x170, li_v1_dpadCameraSpeedMinus);
 
 	// Right Joystick
 	static constexpr s32 joystickCameraSpeed{ 204 * 3 };
 
-	executable.write(m_game->offset().file.executable.initVariableFn + 0x60, Mips::li(Mips::Register::a2, joystickCameraSpeed));
-	executable.write(m_game->offset().file.executable.initVariableFn + 0x68, Mips::li(Mips::Register::a3, joystickCameraSpeed));
+	executable.write(offsetFE.initVariableFn + 0x60, Mips::li(Mips::Register::a2, joystickCameraSpeed));
+	executable.write(offsetFE.initVariableFn + 0x68, Mips::li(Mips::Register::a3, joystickCameraSpeed));
 
 	// Death Camera
-	executable.write(m_game->offset().file.executable.mainLoopFn + 0x408, Mips::li(Mips::Register::t0, 32 / 3));
+	executable.write(offsetFE.mainLoopFn + 0x408, Mips::li(Mips::Register::t0, 32 / 3));
 
 	// Mini Map
 	static constexpr s16 miniMapSpeed{ 12 / 2 };
 
-	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1E24, Mips::li(Mips::Register::s2, miniMapSpeed));
-	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1E54, Mips::li(Mips::Register::s2, -miniMapSpeed));
-	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1E7C, Mips::li(Mips::Register::s5, miniMapSpeed));
-	executable.write(m_game->offset().file.executable.inGameMenuLoopFn + 0x1EAC, Mips::li(Mips::Register::s5, -miniMapSpeed));
+	executable.write(offsetFE.inGameMenuLoopFn + 0x1E24, Mips::li(Mips::Register::s2, miniMapSpeed));
+	executable.write(offsetFE.inGameMenuLoopFn + 0x1E54, Mips::li(Mips::Register::s2, -miniMapSpeed));
+	executable.write(offsetFE.inGameMenuLoopFn + 0x1E7C, Mips::li(Mips::Register::s5, miniMapSpeed));
+	executable.write(offsetFE.inGameMenuLoopFn + 0x1EAC, Mips::li(Mips::Register::s5, -miniMapSpeed));
 
-	executable.write(m_game->offset().file.executable.drawMiniMapFn + 0xE8, Mips_t(0));
-	executable.write(m_game->offset().file.executable.drawMiniMapFn + 0x138, Mips_t(0));
+	executable.write(offsetFE.drawMiniMapFn + 0xE8, Mips_t(0));
+	executable.write(offsetFE.drawMiniMapFn + 0x138, Mips_t(0));
 
 	// Flag Menu
 	if (m_game->version() == Version::Pal)
 	{
 		auto launcher{ m_game->launcherExecutable() };
 
-		launcher.write(m_game->offset().file.launcher.VSyncFn + 0xD0, Mips_t(0x24050007)); // li a1, 7
-		launcher.write(m_game->offset().file.launcher.VSyncFn + 0xD8, Mips_t(0x24840005)); // addiu a0, 5
+		launcher.write(offset.file.launcher.VSyncFn + 0xD0, Mips_t(0x24050007)); // li a1, 7
+		launcher.write(offset.file.launcher.VSyncFn + 0xD8, Mips_t(0x24840005)); // addiu a0, 5
 	}
 }
