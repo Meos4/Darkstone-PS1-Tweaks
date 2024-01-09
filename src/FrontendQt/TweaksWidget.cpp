@@ -93,7 +93,7 @@ TweaksWidget::TweaksWidget(QWidget* parent)
 		"Assassin", "Thief", "Monk", "Priestess"
 	};
 
-	for (const auto& name : hudNames)
+	for (const auto name : hudNames)
 	{
 		m_ui.tweaksHudColorCombo->addItem(name);
 	}
