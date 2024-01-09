@@ -20,10 +20,10 @@ Tweaks::HudColorArray Tweaks::hudColor() const
 void Tweaks::unlockCostumeByDefault() const
 {
 	auto executable{ m_game->executable() };
-	const auto& offsetFE{ m_game->offset().file.executable };
+	const auto chooseClassLoopFnOffset{ m_game->offset().file.executable.chooseClassLoopFn };
 
-	executable.write(offsetFE.chooseClassLoopFn + 0x430, Mips_t(0));
-	executable.write(offsetFE.chooseClassLoopFn + 0x558, Mips_t(0));
+	executable.write(chooseClassLoopFnOffset + 0x430, Mips_t(0));
+	executable.write(chooseClassLoopFnOffset + 0x558, Mips_t(0));
 }
 
 void Tweaks::expandHeroAndLegendShops() const
