@@ -210,21 +210,21 @@ void Tweaks::spellDurability3Stacks() const
 		statsOffset{ CustomCode::SetSpellDurability3Stacks::statsOffset(setSpellDurability3StacksOffset.game) },
 		timingOffset{ CustomCode::SetSpellDurability3Stacks::timingOffset(setSpellDurability3StacksOffset.game) };
 
-	for (const auto& info : buffInfos)
+	for (const auto& [locShift, structShift, buff] : buffInfos)
 	{
 		auto buffOffset = [&]()
 		{
-			switch (info.buff)
+			switch (buff)
 			{
 			case BUFF_LYCANTHROPY: return lycanthropyOffset;
 			case BUFF_STATS: return statsOffset;
 			case BUFF_TIMING: return timingOffset;
-			default: throw DstException{ "Invalid buff: {}", info.buff };
+			default: throw DstException{ "Invalid buff: {}", buff };
 			}
 		};
 
-		executable.write(offset.file.executable.setPrayerFn + info.locShift, 
-			std::array<Mips_t, 2>{ Mips::jal(buffOffset()), Mips::li(Mips::Register::t1, info.structShift) });
+		executable.write(offset.file.executable.setPrayerFn + locShift, 
+			std::array<Mips_t, 2>{ Mips::jal(buffOffset()), Mips::li(Mips::Register::t1, structShift) });
 	}
 }
 
