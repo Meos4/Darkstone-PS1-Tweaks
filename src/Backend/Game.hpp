@@ -38,17 +38,16 @@ public:
 	RawFile executable() const;
 	RawFile launcherExecutable() const;
 	CustomCodeOffset customCodeOffset(CustomCode::Id id) const;
+	const char* versionText() const;
+	const char* serialText() const;
+	std::filesystem::path isoPath() const;
+	std::filesystem::path isoFilename() const;
 
 	template <SameAs<Version>... Args>
 	bool isVersion(Args... versions) const
 	{
 		return ((m_version == versions) || ...);
 	}
-
-	const char* versionText() const;
-	const char* serialText() const;
-	std::filesystem::path isoPath() const;
-	std::filesystem::path isoFilename() const;
 
 	Version version() const;
 	const Offset& offset() const;
