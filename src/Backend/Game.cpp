@@ -29,10 +29,11 @@ Game::Game(const std::filesystem::path& isoPath, Version version)
 {
 	// Expand Executable
 	auto executable{ this->executable() };
+	const auto& offsetFE{ offset().file.executable };
 
 	auto
-		luiBeginHeap{ executable.read<Mips_t>(offset().file.executable.startFn + 0x18) },
-		addiuBeginHeap{ executable.read<Mips_t>(offset().file.executable.startFn + 0x1C) };
+		luiBeginHeap{ executable.read<Mips_t>(offsetFE.startFn + 0x18) },
+		addiuBeginHeap{ executable.read<Mips_t>(offsetFE.startFn + 0x1C) };
 
 	if (static_cast<s16>(addiuBeginHeap) < 0 && static_cast<s16>(addiuBeginHeap) + Game::sectorSize >= 0)
 	{
@@ -67,8 +68,8 @@ Game::Game(const std::filesystem::path& isoPath, Version version)
 		luiBeginHeap += isRightPartPositive ? (newBeginHeap >> 16) : (newBeginHeap >> 16) + 1;
 		addiuBeginHeap = ((addiuBeginHeap >> 16) << 16) + static_cast<u16>(newBeginHeap);
 
-		executable.write(offset().file.executable.startFn + 0x54, luiBeginHeap + 0x10000);
-		executable.write(offset().file.executable.startFn + 0x58, addiuBeginHeap + 0x210000);
+		executable.write(offsetFE.startFn + 0x54, luiBeginHeap + 0x10000);
+		executable.write(offsetFE.startFn + 0x58, addiuBeginHeap + 0x210000);
 
 		m_isVanilla = true;
 	}
