@@ -187,7 +187,7 @@ Game::CustomCodeOffset Game::customCodeOffset(CustomCode::Id id) const
 
 	for (auto i{ static_cast<std::underlying_type_t<CustomCode::Id>>(id) }; i != 0; --i)
 	{
-		cc += ccSizes[i - 1];
+		cc += static_cast<u32>(ccSizes[i - 1]);
 	}
 
 	return cc;
