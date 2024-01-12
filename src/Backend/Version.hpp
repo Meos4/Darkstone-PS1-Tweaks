@@ -4,6 +4,6 @@ enum class Version
 {
 	NtscU,
 	Pal,
-	PalEn,
+	PalAustralia,
 	Count
 };

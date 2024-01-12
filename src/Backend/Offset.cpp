@@ -73,7 +73,7 @@ filePal
 		.VSyncFn = 0x00007C24
 	}
 },
-filePalEn
+filePalAustralia
 {
 	.executable
 	{
@@ -133,7 +133,7 @@ gamePal
 	.baseStatsPtr = 0x800E8A50,
 	.cc_begin = 0x801304F0
 },
-gamePalEn
+gamePalAustralia
 {
 	.setItemBonusFn = 0x8004AC54,
 	.difficulty = 0x800E34CC,
@@ -157,7 +157,7 @@ const Offset::File& Offset::setFile(Version version)
 	{
 	case Version::NtscU: return fileNtscU;
 	case Version::Pal: return filePal;
-	case Version::PalEn: return filePalEn;
+	case Version::PalAustralia: return filePalAustralia;
 	default: throw DstException{ "Invalid game version : {}", static_cast<std::underlying_type_t<Version>>(version) };
 	}
 }
@@ -168,7 +168,7 @@ const Offset::Game& Offset::setGame(Version version)
 	{
 	case Version::NtscU: return gameNtscU;
 	case Version::Pal: return gamePal;
-	case Version::PalEn: return gamePalEn;
+	case Version::PalAustralia: return gamePalAustralia;
 	default: throw DstException{ "Invalid game version : {}", static_cast<std::underlying_type_t<Version>>(version) };
 	}
 }

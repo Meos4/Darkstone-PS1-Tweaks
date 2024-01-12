@@ -21,7 +21,7 @@ static constexpr std::array<VersionSerialText, static_cast<std::size_t>(Version:
 {
 	"NTSC-U", "SLUS-01182",
 	"PAL", "SLES-00612",
-	"PAL-EN", "SLES-03447"
+	"PAL-Australia", "SLES-03447"
 };
 
 Game::Game(const std::filesystem::path& isoPath, Version version)
@@ -107,7 +107,7 @@ RawFile Game::launcherExecutable() const
 		{
 		case Version::NtscU: return "SLUS_011.82";
 		case Version::Pal: return "SLES_006.12";
-		case Version::PalEn: return "SLES_034.47";
+		case Version::PalAustralia: return "SLES_034.47";
 		default: throw DstException{ "Invalid game version : {}", static_cast<std::underlying_type_t<Version>>(m_version) };
 		}
 	};

@@ -86,7 +86,7 @@ void Tweaks::legendDifficultyRequirement60To50() const
 		data1_psm->write(0x000CFE4D, '5');
 		data1_psm->write(0x000D73E8, '5');
 	}
-	else if (version == Version::PalEn)
+	else if (version == Version::PalAustralia)
 	{
 		data1_psm->write(0x000C11DE, '5');
 	}
