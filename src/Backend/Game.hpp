@@ -31,7 +31,7 @@ public:
 
 	Game(const std::filesystem::path& isoPath, Version version);
 
-	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
+	static std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 
 	std::filesystem::path filePath(s32 file) const;
 	std::unique_ptr<RawFile> file(s32 file) const;
