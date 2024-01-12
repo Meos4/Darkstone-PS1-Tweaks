@@ -31,11 +31,13 @@ public:
 
 	Game(const std::filesystem::path& isoPath, Version version);
 
-	std::filesystem::path filePath(s32 file) const;
+	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 
+	std::filesystem::path filePath(s32 file) const;
 	std::unique_ptr<RawFile> file(s32 file) const;
 	RawFile executable() const;
 	RawFile launcherExecutable() const;
+	CustomCodeOffset customCodeOffset(CustomCode::Id id) const;
 
 	template <SameAs<Version>... Args>
 	bool isVersion(Args... versions) const
@@ -47,14 +49,13 @@ public:
 	const char* serialText() const;
 	std::filesystem::path isoPath() const;
 	std::filesystem::path isoFilename() const;
+
 	Version version() const;
 	const Offset& offset() const;
 	bool isVanilla() const;
+
 	void setIsoPath(const std::filesystem::path& isoPath);
 	void setNotVanilla();
-	CustomCodeOffset customCodeOffset(CustomCode::Id id) const;
-
-	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:
 	bool m_isVanilla;
 	std::filesystem::path m_isoPath;

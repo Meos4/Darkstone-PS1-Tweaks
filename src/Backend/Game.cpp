@@ -79,6 +79,42 @@ Game::Game(const std::filesystem::path& isoPath, Version version)
 	}
 }
 
+std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)
+{
+	if (!std::filesystem::is_regular_file(isoPath))
+	{
+		return std::nullopt;
+	}
+
+	RawFile iso{ isoPath };
+
+	using OffsetPattern = std::pair<u32, SBuffer<11>>;
+	static constexpr std::array<OffsetPattern, static_cast<std::size_t>(Version::Count)> ver
+	{{
+		{ 0x0000D374, { 0x53, 0x4C, 0x55, 0x53, 0x5F, 0x30, 0x31, 0x31, 0x2E, 0x38, 0x32 } },
+		{ 0x0000D374, { 0x53, 0x4C, 0x45, 0x53, 0x5F, 0x30, 0x30, 0x36, 0x2E, 0x31, 0x32 } },
+		{ 0x0000D374, { 0x53, 0x4C, 0x45, 0x53, 0x5F, 0x30, 0x33, 0x34, 0x2E, 0x34, 0x37 } },
+	}};
+
+	static constexpr auto maxOffset{ (*std::max_element(ver.begin(), ver.end(),
+		[](const auto& a, const auto& b) { return a.first < b.first; })).first };
+
+	if (iso.size() < maxOffset + sizeof(OffsetPattern::second))
+	{
+		return std::nullopt;
+	}
+
+	for (std::size_t i{}; i < ver.size(); ++i)
+	{
+		if (iso.read<std::remove_const_t<decltype(ver[i].second)>>(ver[i].first) == ver[i].second)
+		{
+			return static_cast<Version>(i);
+		}
+	}
+
+	return std::nullopt;
+}
+
 std::filesystem::path Game::filePath(s32 file) const
 {
 	const std::filesystem::path path{ std::format("{}/{}/{}", Path::dstTempDirectory, Path::filesDirectory, File::names[file]) };
@@ -120,6 +156,32 @@ RawFile Game::launcherExecutable() const
 	}
 
 	return RawFile{ path };
+}
+
+Game::CustomCodeOffset Game::customCodeOffset(CustomCode::Id id) const
+{
+	static constexpr std::array<std::size_t, static_cast<std::size_t>(CustomCode::Id::Count)> ccSizes
+	{
+		sizeof(CustomCode::GenerateJewelryBonus),
+		sizeof(CustomCode::SetHeroAndLegendBonusShop),
+		sizeof(CustomCode::SetSpellDurability3Stacks),
+		sizeof(CustomCode::DivideXpBarSizeBy16),
+		sizeof(CustomCode::CheckCharacterLevelToSave),
+		sizeof(CustomCode::Return0StatsIfMaximum)
+	};
+
+	CustomCodeOffset cc
+	{
+		.file = offset().file.executable.cc_begin,
+		.game = offset().game.cc_begin
+	};
+
+	for (auto i{ static_cast<std::underlying_type_t<CustomCode::Id>>(id) }; i != 0; --i)
+	{
+		cc += static_cast<u32>(ccSizes[i - 1]);
+	}
+
+	return cc;
 }
 
 const char* Game::versionText() const
@@ -165,66 +227,4 @@ void Game::setIsoPath(const std::filesystem::path& isoPath)
 void Game::setNotVanilla()
 {
 	m_isVanilla = false;
-}
-
-Game::CustomCodeOffset Game::customCodeOffset(CustomCode::Id id) const
-{
-	static constexpr std::array<std::size_t, static_cast<std::size_t>(CustomCode::Id::Count)> ccSizes
-	{
-		sizeof(CustomCode::GenerateJewelryBonus),
-		sizeof(CustomCode::SetHeroAndLegendBonusShop),
-		sizeof(CustomCode::SetSpellDurability3Stacks),
-		sizeof(CustomCode::DivideXpBarSizeBy16),
-		sizeof(CustomCode::CheckCharacterLevelToSave),
-		sizeof(CustomCode::Return0StatsIfMaximum)
-	};
-
-	CustomCodeOffset cc
-	{
-		.file = offset().file.executable.cc_begin,
-		.game = offset().game.cc_begin
-	};
-
-	for (auto i{ static_cast<std::underlying_type_t<CustomCode::Id>>(id) }; i != 0; --i)
-	{
-		cc += static_cast<u32>(ccSizes[i - 1]);
-	}
-
-	return cc;
-}
-
-std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)
-{
-	if (!std::filesystem::is_regular_file(isoPath))
-	{
-		return std::nullopt;
-	}
-
-	RawFile iso{ isoPath };
-
-	using OffsetPattern = std::pair<u32, SBuffer<11>>;
-	static constexpr std::array<OffsetPattern, static_cast<std::size_t>(Version::Count)> ver
-	{{
-		{ 0x0000D374, { 0x53, 0x4C, 0x55, 0x53, 0x5F, 0x30, 0x31, 0x31, 0x2E, 0x38, 0x32 } },
-		{ 0x0000D374, { 0x53, 0x4C, 0x45, 0x53, 0x5F, 0x30, 0x30, 0x36, 0x2E, 0x31, 0x32 } },
-		{ 0x0000D374, { 0x53, 0x4C, 0x45, 0x53, 0x5F, 0x30, 0x33, 0x34, 0x2E, 0x34, 0x37 } },
-	}};
-
-	static constexpr auto maxOffset{ (*std::max_element(ver.begin(), ver.end(),
-		[](const auto& a, const auto& b) { return a.first < b.first; })).first };
-
-	if (iso.size() < maxOffset + sizeof(OffsetPattern::second))
-	{
-		return std::nullopt;
-	}
-
-	for (std::size_t i{}; i < ver.size(); ++i)
-	{
-		if (iso.read<std::remove_const_t<decltype(ver[i].second)>>(ver[i].first) == ver[i].second)
-		{
-			return static_cast<Version>(i);
-		}
-	}
-
-	return std::nullopt;
 }
