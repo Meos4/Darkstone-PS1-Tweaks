@@ -7,6 +7,17 @@
 
 namespace CustomCode
 {
+	enum class Id
+	{
+		GenerateJewelryBonus,
+		SetHeroAndLegendBonusShop,
+		SetSpellDurability3Stacks,
+		DivideXpBarSizeBy16,
+		CheckCharacterLevelToSave,
+		Return0StatsIfMaximum,
+		Count
+	};
+
 	struct GenerateJewelryBonus
 	{
 		std::array<char, 7> xamuletStr;

@@ -166,40 +166,30 @@ void Game::setNotVanilla()
 	m_isVanilla = false;
 }
 
-Game::CustomCodeOffset Game::setTheftJewelryBonusOffset() const
+Game::CustomCodeOffset Game::customCodeOffset(CustomCode::Id id) const
 {
+	static constexpr std::array<std::size_t, static_cast<std::size_t>(CustomCode::Id::Count)> ccSizes
+	{
+		sizeof(CustomCode::GenerateJewelryBonus),
+		sizeof(CustomCode::SetHeroAndLegendBonusShop),
+		sizeof(CustomCode::SetSpellDurability3Stacks),
+		sizeof(CustomCode::DivideXpBarSizeBy16),
+		sizeof(CustomCode::CheckCharacterLevelToSave),
+		sizeof(CustomCode::Return0StatsIfMaximum)
+	};
+
 	CustomCodeOffset cc
 	{
 		.file = offset().file.executable.cc_begin,
 		.game = offset().game.cc_begin
 	};
 
+	for (auto i{ static_cast<std::underlying_type_t<CustomCode::Id>>(id) }; i != 0; --i)
+	{
+		cc += ccSizes[i - 1];
+	}
+
 	return cc;
-}
-
-Game::CustomCodeOffset Game::setHeroAndLegendBonusShopOffset() const
-{
-	return setTheftJewelryBonusOffset() += sizeof(CustomCode::GenerateJewelryBonus);
-}
-
-Game::CustomCodeOffset Game::setSpellDurability3StacksOffset() const
-{
-	return setHeroAndLegendBonusShopOffset() += sizeof(CustomCode::SetHeroAndLegendBonusShop);
-}
-
-Game::CustomCodeOffset Game::divideXpBarSizeBy16Offset() const
-{
-	return setSpellDurability3StacksOffset() += sizeof(CustomCode::SetSpellDurability3Stacks);
-}
-
-Game::CustomCodeOffset Game::checkCharacterLevelToSaveOffset() const
-{
-	return divideXpBarSizeBy16Offset() += sizeof(CustomCode::DivideXpBarSizeBy16);
-}
-
-Game::CustomCodeOffset Game::return0StatsIfMaximumOffset() const
-{
-	return checkCharacterLevelToSaveOffset() += sizeof(CustomCode::CheckCharacterLevelToSave);
 }
 
 std::optional<Version> Game::isAValidIso(const std::filesystem::path& isoPath)

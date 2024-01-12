@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Backend/CustomCode.hpp"
 #include "Backend/Offset.hpp"
 #include "Backend/Version.hpp"
 #include "Common/RawFile.hpp"
@@ -49,16 +50,9 @@ public:
 	Version version() const;
 	const Offset& offset() const;
 	bool isVanilla() const;
-
 	void setIsoPath(const std::filesystem::path& isoPath);
 	void setNotVanilla();
-
-	CustomCodeOffset setTheftJewelryBonusOffset() const;
-	CustomCodeOffset setHeroAndLegendBonusShopOffset() const;
-	CustomCodeOffset setSpellDurability3StacksOffset() const;
-	CustomCodeOffset divideXpBarSizeBy16Offset() const;
-	CustomCodeOffset checkCharacterLevelToSaveOffset() const;
-	CustomCodeOffset return0StatsIfMaximumOffset() const;
+	CustomCodeOffset customCodeOffset(CustomCode::Id id) const;
 
 	static [[nodiscard]] std::optional<Version> isAValidIso(const std::filesystem::path& isoPath);
 private:

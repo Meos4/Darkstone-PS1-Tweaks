@@ -61,7 +61,7 @@ void Tweaks::expandHeroAndLegendShops() const
 		0x00000000  // nop
 	};
 
-	const auto setHeroAndLegendBonusShopOffset{ m_game->setHeroAndLegendBonusShopOffset() };
+	const auto setHeroAndLegendBonusShopOffset{ m_game->customCodeOffset(CustomCode::Id::SetHeroAndLegendBonusShop) };
 
 	const std::array<Mips_t, 2> jal_sll_v1_2{ Mips::jal(setHeroAndLegendBonusShopOffset.game), 0x00031880 }; // sll v1, 2
 
@@ -149,7 +149,7 @@ void Tweaks::spellDurability3Stacks() const
 		{ 0x1A88, 0x364, BUFF_TIMING }
 	}};
 
-	const auto setSpellDurability3StacksOffset{ m_game->setSpellDurability3StacksOffset() };
+	const auto setSpellDurability3StacksOffset{ m_game->customCodeOffset(CustomCode::Id::SetSpellDurability3Stacks) };
 	const auto j_function{ Mips::j(CustomCode::SetSpellDurability3Stacks::functionOffset(setSpellDurability3StacksOffset.game)) };
 	const auto& offset{ m_game->offset() };
 
@@ -300,7 +300,7 @@ void Tweaks::hideLevelUpXPIfStatsAreAtMaximum() const
 
 	auto executable{ m_game->executable() };
 
-	const auto return0StatsIfMaximumOffset{ m_game->return0StatsIfMaximumOffset() };
+	const auto return0StatsIfMaximumOffset{ m_game->customCodeOffset(CustomCode::Id::Return0StatsIfMaximum) };
 
 	executable.write(return0StatsIfMaximumOffset.file, return0StatsIfMaximumFn);
 
@@ -333,7 +333,7 @@ void Tweaks::expBarGlitch() const
 
 	auto executable{ m_game->executable() };
 
-	const auto divideXpBarSizeBy16Offset{ m_game->divideXpBarSizeBy16Offset() };
+	const auto divideXpBarSizeBy16Offset{ m_game->customCodeOffset(CustomCode::Id::DivideXpBarSizeBy16) };
 
 	executable.write(divideXpBarSizeBy16Offset.file, divideXpBarSizeBy16Fn);
 	executable.write(m_game->offset().file.executable.drawHudFn + 0x794,
@@ -358,7 +358,7 @@ void Tweaks::cantSaveIfLevel59() const
 
 	auto executable{ m_game->executable() };
 
-	const auto checkCharacterLevelToSaveOffset{ m_game->checkCharacterLevelToSaveOffset() };
+	const auto checkCharacterLevelToSaveOffset{ m_game->customCodeOffset(CustomCode::Id::CheckCharacterLevelToSave) };
 
 	executable.write(checkCharacterLevelToSaveOffset.file, checkCharacterLevelToSaveFn);
 	executable.write(m_game->offset().file.executable.overrideCharacterFn + 0x68,
@@ -378,7 +378,7 @@ void Tweaks::theftEmptyJewelry() const
 	const auto& offset{ m_game->offset() };
 	const auto& offsetG{ offset.game };
 
-	const auto generateJewelryBonusOffset{ m_game->setTheftJewelryBonusOffset() };
+	const auto generateJewelryBonusOffset{ m_game->customCodeOffset(CustomCode::Id::GenerateJewelryBonus) };
 
 	const auto 
 		li32_mapId{ Mips::li32(Mips::Register::a1, offsetG.mapId) },
