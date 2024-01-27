@@ -2,5 +2,5 @@
 
 namespace Software
 {
-	inline constexpr auto version{ "0.0.0" };
+	inline constexpr auto version{ "1.0.0" };
 }
