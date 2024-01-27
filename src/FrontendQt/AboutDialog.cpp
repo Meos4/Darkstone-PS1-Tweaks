@@ -13,5 +13,5 @@ AboutDialog::AboutDialog(QWidget* parent)
 		std::format("<b><font size=\"+2\">Darkstone PS1 Tweaks v{} by Meos</b></font>", Software::version)));
 
 	m_ui.linkLabel->setOpenExternalLinks(true);
-	m_ui.linkLabel->setText("<a href=\"https://github.com/Meos4\">GitHub</a>");
+	m_ui.linkLabel->setText("<a href=\"https://github.com/Meos4/Darkstone-PS1-Tweaks\">GitHub</a>");
 }
