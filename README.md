@@ -21,14 +21,8 @@ A Darkstone iso of a retail version with multi tracks (Track 1, Track 2...) in t
 Building
 -
 Requirements:
-* Git
 * CMake
 * C++20
 * Qt 6
 
 Clone repository using: `git clone --recursive https://github.com/Meos4/Darkstone-PS1-Tweaks.git`
-
-Dependencies
------------
-* [mkpsxiso](https://github.com/Meos4/mkpsxiso)
-* [nlohmann json](https://github.com/nlohmann/json)
